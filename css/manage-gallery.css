@@ -1,0 +1,300 @@
+/* clearfix */
+
+.clearfix:before,
+.clearfix:after {
+    content:"";
+    display:table;
+}
+
+.clearfix:after 
+{
+    clear:both;
+}
+
+.clearfix
+{
+   zoom:1;
+}
+
+
+/* libraries */
+
+#galleriapress-libraries
+{
+  border: 1px solid #dddddd;
+  min-height: 255px;
+}
+
+.ui-resizable { position: relative;}
+.ui-resizable-handle { position: absolute;font-size: 0.1px; display: block; }
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+
+#galleriapress-libraries .ui-resizable-s
+{
+  background: #ddd;
+	z-index: 80;
+}
+
+.ui-draggable-dragging
+{
+	max-width: 120px;
+	max-height: 120px;
+	list-style: none;
+}
+
+/* tabs */
+.libraries-tabs
+{
+	padding: 0;
+	margin: 20px 0 0;
+}
+
+.libraries-tabs li
+{
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+.libraries-tabs li a
+{
+	padding: 7px 7px 6px;
+	text-decoration: none;
+  display: block;
+	background: #f2f2f2;
+}
+
+.libraries-tabs li img
+{
+  display: block;
+  max-width: 28px;
+  max-height: 28px;
+}
+
+.libraries-tabs li .title
+{
+  margin: 6px 0 5px;
+  display: block;
+}
+
+.libraries-tabs li:first-child a
+{
+	border-radius: 2px 0 0 2px;
+}
+
+.libraries-tabs li:last-child a
+{
+	border-radius: 0 2px 2px 0;
+}
+
+.libraries-tabs li a.current
+{
+	font-weight: bold;
+	background: #eee;
+  border: 1px solid #ddd;
+  border-bottom: none;
+	padding: 6px 7px;
+}
+
+#galleriapress-libraries .library
+{
+  display: none;
+  height: 255px;
+}
+
+#galleriapress-libraries .library-settings
+{
+  display: none;
+}
+
+.libraries-menu
+{
+  float: right;
+}
+
+.libraries-menu .current
+{
+  font-weight: bold;
+}
+
+.libraries-menu a
+{
+  cursor: pointer;
+}
+
+.galleriapress-items-container
+{
+	clear: both;
+	margin-top: 20px;
+}
+
+#galleriapress-items
+{
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  height: 220px;
+  position: relative;
+}
+
+#galleriapress-items > li
+{
+  position: relative
+}
+
+#galleriapress-items > li .delete
+{
+  background: url(../images/close-button.png);
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+#galleriapress-items > li:hover .delete
+{
+  display: block;
+}
+
+/* base image grid */
+
+
+#gallery-box .grid
+{
+	display: block;
+	list-style-type: none;
+  height: 220px;
+}
+
+#gallery-box .grid li
+{
+	float:left;
+	cursor: pointer;
+  background: #ddd;
+  padding: 3px;
+  margin: 5px;
+  width: 100px;
+  height: 100px;
+}
+
+#gallery-box .grid li img
+{
+	display: block;
+  max-width: 100px;
+  max-height: 100px;
+  margin: 0 auto;
+}
+
+#galleriapress-libraries .library,
+#galleriapress-items
+{
+  overflow-y: scroll;
+}
+
+/* wp_media */
+
+.ui-sortable-helper
+{
+	list-style: none;
+}
+
+.ui-sortable-placeholder
+{
+	width: 100px;
+	height: 100px;
+	background: #cccccc;
+	margin: 5px;
+}
+
+
+/* gallery options */
+
+.custom-size input
+{
+	width: 4em;
+}
+
+.custom-size span
+{
+	margin: 0 20px 0 10px;
+}
+
+.themes li
+{
+	display: block;
+	float: left;
+	width: 200px;
+	height: 100px;
+	text-align: center;
+	position: relative;
+	line-height: 100px;
+	cursor: pointer;
+	background: #cccccc;
+	border-radius: 5px;
+}
+
+.themes li.active,
+.themes li.active:hover
+{
+	background: #bbbbbb;
+}
+
+.themes li:hover
+{
+	background: #dddddd;
+}
+
+.themes li span
+{
+	vertical-align: middle;
+	display: inline-block;
+
+	cursor: pointer;
+}
+
+
+/* wp_media */
+
+#galleriapress-libraries .media-buttons
+{
+  float: left;
+}
+
+#galleriapress-libraries .page-nav
+{
+  float: right;
+  padding: 3px;
+  margin: 10px 10px 0 0;
+}
+
+#galleriapress-libraries .page-nav a
+{
+  padding: 5px 8px;
+  background: #aaaaaa;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#wp_media-library .media-buttons
+{
+  margin: 10px 0 0 10px;
+}
+
+
+
+/* picasa interface */
+
+
+.loader
+{
+	background: url(images/loader.gif) no-repeat;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	vertical-align: middle;
+	display: none;
+}

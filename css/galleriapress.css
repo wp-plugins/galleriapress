@@ -1,0 +1,46 @@
+/**
+ * galleriapress.css
+ *
+ * default styles for galleria
+ * @version 0.2
+ */
+
+.galleria
+{
+	min-height: 100px;
+}
+
+.galleria .galleria-info.top-right
+{
+	right: 15px;
+	left: auto;
+	top: 15px;
+}
+
+.galleria .galleria-info.bottom-left
+{
+	left: 15px;
+	bottom: 15px;
+	top: auto;
+}
+
+.galleria .galleria-info.bottom-right
+{
+	left: auto;
+	bottom: 15px;
+	top: auto;
+	right: 15px;
+}
+
+.galleria .galleria-info.top-right .galleria-info-link,
+.galleria .galleria-info.bottom-right .galleria-info-link
+{
+	float: right;
+	position: static;
+}
+
+.galleria a
+{
+	width: 150px;
+	height: 150px;
+}

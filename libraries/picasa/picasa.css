@@ -1,0 +1,75 @@
+#galleriapress-libraries #picasa-library
+{
+  overflow: auto;
+}
+
+.picasa-menu
+{
+  width: 150px;
+  height: 100%;
+  margin: 0;
+  padding: 5px;
+  border-right: 2px solid #ccc;
+  float: left;
+}
+
+.picasa-menu > li
+{
+  margin: 10px 8px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#picasa-library .library-items
+{
+  float: left;
+  width: 678px;
+}
+
+#picasa-library .picasa-album
+{
+  margin: 10px;
+  float: left;
+  overflow: hidden;
+  width: 160px;
+  height: 250px;
+  cursor: pointer;
+}
+
+#picasa-library .picasa-album .title
+{
+  margin: 5px 0 10px;
+  font-size: 1.2em;
+  display: block;
+}
+
+.picasa-loading
+{
+  text-align: center;
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  display: none;
+}
+
+.picasa-loading .msg
+{
+  background: #f9edbe;
+  padding: 5px;
+}
+
+.picasa-menu .picasa-search
+{
+  width: 130px;
+}
+
+.picasa-menu .browse
+{
+  margin-top: 10px;
+}
+
+#profiles-box .choose-profile
+{
+  margin-top: 10px;
+}
