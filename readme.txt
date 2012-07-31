@@ -4,7 +4,7 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: gallery, galleria
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.7.4
+Stable tag: 0.7.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,3 +31,11 @@ This plugin requries PHP Version 5.3 or greater
 1. Upload zip file contents to your plugins/ folder
 2. Activate plugin
 
+
+== Changelog ==
+
+= 0.7.4.1 =
+
+* Added link to go back to main Picasa libary menu when in search
+* Add some padding for Picasa and Youtube settings panel
+* Removed requirement for PHP 5.3 (should now work with PHP 5.2.4)
