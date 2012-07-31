@@ -114,8 +114,16 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 		extract($options['options']);
 
 	?>
-		<label for="youtube_username">Youtube Username</label>
-		<input type="text" name="youtube_username" value="<?php echo $youtube_username; ?>" />
+		<table class="form-table">
+      <tr>
+        <td>
+          <label for="youtube_username">Youtube Username</label>
+        </td>
+        <td>
+          <input type="text" name="youtube_username" value="<?php echo $youtube_username; ?>" />
+        </td>
+      </tr>
+    </table>
 	<?php
 	}
 

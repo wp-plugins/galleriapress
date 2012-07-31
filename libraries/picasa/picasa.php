@@ -93,8 +93,16 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		extract($options);
 
 	?>
-		<label for="picasa_username">Picasa Username</label>
-		<input type="text" name="picasa_username" value="<?php echo $picasa_username; ?>" />
+		<table class="form-table">
+      <tr>
+        <td>
+          <label for="picasa_username">Picasa Username</label>
+        </td>
+        <td>
+          <input type="text" name="picasa_username" value="<?php echo $picasa_username; ?>" />
+        </td>
+      </tr>
+    </table>
 	<?php
 	}
 
