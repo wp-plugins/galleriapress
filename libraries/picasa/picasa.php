@@ -183,8 +183,11 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
         $search_query = htmlentities($_POST['picasa_search']);
       ?>
       <ul class="picasa-menu">
-        <input type="text" name="picasa_search" class="picasa-search" placeholder="Search..."/>
-        <input type="button"  class="button browse" data-path="search" value="Search" />
+        <li>
+          <input type="text" name="picasa_search" class="picasa-search" placeholder="Search..."/>
+          <input type="button"  class="button browse" data-path="search" value="Search" />
+        </li>
+        <li class="browse" data-path="albums">Back</li>
       </ul>
       <?php
       if($search_query)
