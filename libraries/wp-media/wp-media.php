@@ -19,6 +19,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   public function init()
   {
     wp_register_script('galleriapress-wp_media', plugins_url("wp-media.js", __FILE__), array('galleriapress-manage-gallery'));
+    wp_register_style('galleriapress-wp_media', plugins_url("wp-media.css", __FILE__), array('galleriapress-manage-gallery'));
   }
 
   public function admin_print_scripts()
@@ -29,6 +30,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
        in_array($post->post_type, array('gallery', 'gallery_profile')))
       {
         wp_enqueue_script('galleriapress-wp_media');
+        wp_enqueue_style('galleriapress-wp_media');
       }    
   }
 
