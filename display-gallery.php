@@ -171,6 +171,8 @@ function galleriapress_shortcode($attr)
   }
 
   // recreate processed array
+  $final_items = array();
+
   foreach($items_data as $library => $items)
   {
     foreach($items as $index => $item)
