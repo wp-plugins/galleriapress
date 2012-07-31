@@ -4,7 +4,7 @@
  * Plugin Name: GalleriaPress
  * Plugin URI: http://secondvariety.com
  * Description: Plugin for Galleria.js integration
- * Version: 0.7.4
+ * Version: 0.7.4.1
  * Author: Erez Odier
  * Author URI: http://secondvariety.com
  * License: GPLv2
@@ -14,7 +14,7 @@
 /* define version of galleria press, make it global
 	 so that it can be used during plugin activation */
 global $galleriapress_version;
-$galleriapress_version = '0.7.4';
+$galleriapress_version = '0.7.4.1';
 
 /* define version of galleria plugin */
 $galleria_version = '1.2.7';
