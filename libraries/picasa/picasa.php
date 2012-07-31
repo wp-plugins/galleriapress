@@ -13,7 +13,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     add_action('wp_ajax_picasa_library_items', array(&$this, 'ajax_library_items'));
 	}
 
-	public static function info()
+	public function info()
 	{
 		return array('name' => 'picasa',
 								 'title' => 'Picasa',

@@ -31,7 +31,7 @@ abstract class GalleriaPress_Library
   /**
    * return the library info
    */
-  public static function info() { }
+  public function info() { }
 
   /**
    * Display the library items
@@ -65,10 +65,14 @@ abstract class GalleriaPress_Library
    */
 	public function galleriapress_libraries($libraries)
 	{
-    $info = static::info();
+    if(method_exists($this, 'info'))
+    {
+      $info = $this->info();
 
-		$libraries[$info['name']] = $this;
-		return $libraries;
+      $libraries[$info['name']] = $this;
+    }
+
+    return $libraries;
 	}
 
 }

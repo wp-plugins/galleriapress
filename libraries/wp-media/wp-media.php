@@ -35,7 +35,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   /**
    * return the library info
    */
-  public static function info() 
+  public function info() 
 	{
 		return array('name' => 'wp_media',
 								 'title' => 'Media Library',

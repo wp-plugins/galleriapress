@@ -11,7 +11,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
     add_action('admin_print_scripts-post-new.php', array(&$this, 'admin_print_scripts'));
 	}
 
-	public static function info()
+	public function info()
 	{
 		return array('name' => 'youtube',
 								 'title' => 'Youtube',

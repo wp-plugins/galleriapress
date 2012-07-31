@@ -35,27 +35,6 @@ require_once(dirname(__FILE__) . '/manage-gallery.php');
 
 
 
-function galleriapress_check_php_version()
-{
-  $required_php_version = '5.3';
-
-  // check php compatibility
-  $php_version = phpversion();
-	if(version_compare($required_php_version, $php_version, '>'))
-  {
-    $plugin = plugin_basename(__FILE__);
-    $plugin_data = get_plugin_data(__FILE__, false);
-    if(is_plugin_active($plugin))
-    {
-			deactivate_plugins($plugin);
-			wp_die("'" . $plugin_data['Name'] . "' requires PHP " . $required_php_version . " or higher! Deactivating Plugin.<br /><br />Back to <a href='" . admin_url() . "'>WordPress admin</a>.");
-		}
-  }
-}
-
-add_action('admin_init', 'galleriapress_check_php_version');
-
-
 /**
  * Plugin activation. Set up the plugin default options
  */
