@@ -4,7 +4,7 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: gallery, galleria
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.7.4.1
+Stable tag: 0.7.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,10 @@ This plugin requries PHP Version 5.3 or greater
 
 
 == Changelog ==
+
+= 0.7.4.2 =
+
+* Fixed error when activation with PHP 5.2
 
 = 0.7.4.1 =
 
