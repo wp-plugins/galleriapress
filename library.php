@@ -23,9 +23,11 @@ abstract class GalleriaPress_Library
    */
 	public function __get($name)
 	{
-		$info = static::info();
-
-		return $info[$name];
+    if(method_exists($this, 'info'))
+    {
+      $info = $this->info();
+      return $info[$name];
+    }
 	}
 
   /**
