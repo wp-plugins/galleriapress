@@ -71,9 +71,9 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
       $photo_width = $gphoto->width;
 
       // attribute for the source image
-      $src_attr = $group->content[0]->attributes();
+      $src_attr = $entry->content[0]->attributes();
 
-      $src_url = (string)$src_attr['url'];
+      $src_url = (string)$src_attr['src'];
       $src_end = basename($src_url);
       $src_url = str_replace($src_end, "s" . $photo_width . "/" . $src_end, $src_url);
 
@@ -176,9 +176,9 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
             $photo_width = $gphoto->width;
 
             // attribute for the source image
-            $src_attr = $group->content[0]->attributes();
+            $src_attr = $entry->content[0]->attributes();
 
-            $src_url = (string)$src_attr['url'];
+            $src_url = (string)$src_attr['src'];
             $src_end = basename($src_url);
             $src_url = str_replace($src_end, "s" . $photo_width . "/" . $src_end, $src_url);
 
