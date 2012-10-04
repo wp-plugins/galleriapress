@@ -1,0 +1,25 @@
+#wp_media-library .media-buttons
+{
+  float: left;
+}
+
+#wp_media-library .page-nav
+{
+  float: right;
+  padding: 3px;
+  margin: 10px 10px 0 0;
+}
+
+#wp_media-library .page-nav a
+{
+  padding: 5px 8px;
+  background: #aaaaaa;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#wp_media-library .media-buttons
+{
+  margin: 10px 0 0 10px;
+}
