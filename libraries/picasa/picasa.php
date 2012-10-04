@@ -67,10 +67,17 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
       $entry = new SimpleXMLElement($photo);
 
       $ns = $entry->getDocNamespaces();
-      $group = $entry->children($ns['media'])->group;
-      $attr = $group->content[0]->attributes();
+      $gphoto = $entry->children($ns['gphoto']);
+      $photo_width = $gphoto->width;
 
-      $item->image = (string)$attr['url'];
+      // attribute for the source image
+      $src_attr = $group->content[0]->attributes();
+
+      $src_url = (string)$src_attr['url'];
+      $src_end = basename($src_url);
+      $src_url = str_replace($src_end, "s" . $photo_width . "/" . $src_end, $src_url);
+
+      $item->image = $src_url;
     }
 
     return $items;
@@ -165,14 +172,21 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
             $ns = $entry->getDocNamespaces();
             $group = $entry->children($ns['media'])->group;
 
+            $gphoto = $entry->children($ns['gphoto']);
+            $photo_width = $gphoto->width;
+
             // attribute for the source image
             $src_attr = $group->content[0]->attributes();
+
+            $src_url = (string)$src_attr['url'];
+            $src_end = basename($src_url);
+            $src_url = str_replace($src_end, "s" . $photo_width . "/" . $src_end, $src_url);
 
             // attribute for the thumbnail
             $attr = $group->thumbnail[1]->attributes();
           ?>
            <li class="ui-state-default" data-itemid="<?php echo $entry->id; ?>" data-library="picasa">
-             <img src="<?php echo $attr['url']; ?>" title="<?php echo $group->title; ?>" data-image="<?php echo (string)$attr['url']; ?>" />
+             <img src="<?php echo $attr['url']; ?>" title="<?php echo $group->title; ?>" data-image="<?php echo $src_url; ?>" />
            </li>
           <?php endforeach; ?>
         </ul>
