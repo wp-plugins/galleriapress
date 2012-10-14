@@ -74,6 +74,7 @@ function galleriapress_check_options()
  */
 function galleriapress_init()
 {
+  global $galleriapress_version;
 	global $galleria_version;
 
 	// check options
@@ -84,7 +85,7 @@ function galleriapress_init()
 
 	// register scripts
 	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.7.js', __FILE__), array('jquery'), $galleria_version, true);
-	wp_register_script('galleriapress-manage-gallery', plugins_url('/js/manage-gallery.js', __FILE__), array('jquery', 'jquery-ui-sortable'), $galleriapress_scripts_version, true);
+	wp_register_script('galleriapress-manage-gallery', plugins_url('/js/manage-gallery.js', __FILE__), array('jquery', 'jquery-ui-sortable'), $galleriapress_version, true);
 	wp_register_script('galleriapress-wpgallery', plugins_url('/js/wpgallery.js', __FILE__), array('jquery'), $galleriapress_version, true);
 
 	// register styles
