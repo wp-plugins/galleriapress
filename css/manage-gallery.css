@@ -112,6 +112,7 @@
 .libraries-menu
 {
   float: right;
+  margin-top: 16px;
 }
 
 .libraries-menu .current
