@@ -1,14 +1,15 @@
 /* clearfix */
 
 .clearfix:before,
-.clearfix:after {
-    content:"";
-    display:table;
+.clearfix:after 
+{
+  content:"";
+  display:table;
 }
 
 .clearfix:after 
 {
-    clear:both;
+  clear:both;
 }
 
 .clearfix
@@ -21,8 +22,11 @@
 
 #galleriapress-libraries
 {
-  border: 1px solid #dddddd;
+  background: #eee;
+  border: 1px solid #ddd;
+  border-top: none;
   min-height: 255px;
+  width: 100%;
 }
 
 .ui-resizable { position: relative;}
@@ -34,7 +38,7 @@
 #galleriapress-libraries .ui-resizable-s
 {
   background: #ddd;
-	z-index: 80;
+	z-index: 80 !important;
 }
 
 .ui-draggable-dragging
@@ -47,8 +51,9 @@
 /* tabs */
 .libraries-tabs
 {
-	padding: 0;
+  border-bottom: 1px solid #ddd;
 	margin: 20px 0 0;
+	padding: 0;
 }
 
 .libraries-tabs li
@@ -60,10 +65,14 @@
 
 .libraries-tabs li a
 {
+	background: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+  display: block;
 	padding: 7px 7px 6px;
 	text-decoration: none;
-  display: block;
-	background: #f2f2f2;
+  position: relative;
+  top: 1px;
+  z-index: 2
 }
 
 .libraries-tabs li img
@@ -94,7 +103,7 @@
 	font-weight: bold;
 	background: #eee;
   border: 1px solid #ddd;
-  border-bottom: none;
+  border-bottom: 1px solid #eee;
 	padding: 6px 7px;
 }
 
@@ -129,10 +138,12 @@
 {
 	clear: both;
 	margin-top: 20px;
+  position: relative;
 }
 
 #galleriapress-items
 {
+  background: #ddd;
   margin-top: 10px;
   border: 1px solid #ddd;
   height: 220px;
@@ -174,7 +185,7 @@
 {
 	float:left;
 	cursor: pointer;
-  background: #ddd;
+  background: #ccc;
   padding: 3px;
   margin: 5px;
   width: 100px;

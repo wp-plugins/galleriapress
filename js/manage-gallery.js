@@ -131,6 +131,8 @@ Galleriapress =
 
 				$('.remove-all').click(function(e)
 															 {
+                                   e.preventDefault();
+
 																	 $('#galleriapress-items').html('');
 																	 reset_items_data();
 															 });

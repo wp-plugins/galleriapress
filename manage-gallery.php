@@ -132,7 +132,6 @@ function galleriapress_gallery_box()
 	</div><!-- #galleriapress-libraries -->
 
 	<div class="clearfix galleriapress-items-container">
-		<a class="remove-all">Remove All</a>
 		<ul id="galleriapress-items" class="connected-sortable grid">
 
 			<?php foreach($items as $item): ?>
@@ -142,6 +141,9 @@ function galleriapress_gallery_box()
       </li>
 			<?php endforeach; ?>
 		</ul><!-- #galleriapress-items -->
+
+		<a class="remove-all button-secondary" href="#">Remove All</a>
+
 	</div><!-- .galleriapress-items-container -->
 
   <input type="hidden" value="<?php echo htmlspecialchars(json_encode($items)); ?>" name="galleriapress_items_data" id="galleriapress_items_data" />
