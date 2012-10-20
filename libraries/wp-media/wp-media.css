@@ -23,3 +23,8 @@
 {
   margin: 10px 0 0 10px;
 }
+
+#wp_media-settings .form-table
+{
+  margin-top: 0;
+}
