@@ -68,6 +68,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 		global $post;
 
 		$options = array_merge(array('page' => 1), $options);
+    $page = $options['page'];
 
 		// get all images in library
 		$images_query = new WP_Query;
