@@ -147,7 +147,18 @@ Galleriapress =
 
         update_box_height($('#galleriapress-items'));
 
+    },
+
+    show_drag_message: function()
+    {
+        $('.drag-items-here').show();
+    },
+
+    hide_drag_message: function()
+    {
+        $('.drag-items-here').hide();
     }
+
 };
 
         
