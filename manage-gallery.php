@@ -142,9 +142,11 @@ function galleriapress_gallery_box()
 			<?php endforeach; ?>
 		</ul><!-- #galleriapress-items -->
 
-		<a class="remove-all button-secondary" href="#">Remove All</a>
+  <div class="drag-items-here">Drag Items Here</div><!-- .drag-items-here -->
 
 	</div><!-- .galleriapress-items-container -->
+
+  <a class="remove-all button-secondary" href="#">Remove All</a>
 
   <input type="hidden" value="<?php echo htmlspecialchars(json_encode($items)); ?>" name="galleriapress_items_data" id="galleriapress_items_data" />
 

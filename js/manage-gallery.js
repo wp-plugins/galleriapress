@@ -108,6 +108,7 @@ Galleriapress =
 						    zIndex: 10000,
 						    appendTo: 'body',
 						    helper: 'clone',
+                tolerance: 'pointer',
 						    receive: function(event, ui) 
                 {
                     var item = { id: ui.item.data('itemid'),
@@ -143,6 +144,8 @@ Galleriapress =
                                                    $(this).parent().remove();
                                                    reset_items_data();
                                                });
+
+        update_box_height($('#galleriapress-items'));
 
     }
 };
