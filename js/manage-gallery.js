@@ -146,7 +146,6 @@ Galleriapress =
                                                });
 
         update_box_height($('#galleriapress-items'));
-
     },
 
     show_drag_message: function()
