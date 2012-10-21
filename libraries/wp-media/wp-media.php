@@ -63,7 +63,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   /**
    * Display the library items
    */
-  public function library_items($gallery_items, $options = array())
+  public function library_items($gallery_items = array(), $options = array())
 	{ 
 		global $post;
 
@@ -86,7 +86,6 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
                                          'paged' => $options['page'],
                                          'order' => 'ASC'));
 
-    print_r($gallery_ids);
 		?>
     <div class="tablenav">
 
