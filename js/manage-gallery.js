@@ -63,7 +63,12 @@ Galleriapress =
         {
             var items_per_row = Math.round($(grid).innerWidth() / $(grid).children('li:first-child').outerWidth(true));
             var num_rows = Math.ceil($(grid).children('li').length / items_per_row);
-            $(grid).height($(grid).children('li:first-child').outerHeight(true) * (num_rows + 1));
+            var height = $(grid).children('li:first-child').outerHeight(true) * (num_rows + 1);
+
+            if(height < 110)
+                height = 110;
+
+            $(grid).height(height);
         }
 
         var reset_items_data = function(event, ui)
@@ -95,6 +100,7 @@ Galleriapress =
                     
                     new_items.push(item);
                 });
+
             Galleriapress.items = new_items;
             $('#galleriapress_items_data').val(JSON.stringify(Galleriapress.items));
 
@@ -109,6 +115,11 @@ Galleriapress =
 						    appendTo: 'body',
 						    helper: 'clone',
                 tolerance: 'pointer',
+                start: function(event, ui)
+                {
+                    Galleriapress.hide_drag_message();
+                    
+                },
 						    receive: function(event, ui) 
                 {
                     var item = { id: ui.item.data('itemid'),
@@ -123,6 +134,8 @@ Galleriapress =
 
                     Galleriapress.items.push(item);
                     $('#galleriapress_items_data').val(JSON.stringify(Galleriapress.items));
+
+                    ui.item.remove();
 
                     update_box_height(this);
 						    },

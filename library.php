@@ -37,16 +37,23 @@ abstract class GalleriaPress_Library
 
   /**
    * Display the library items
+   *
+   * @param optional array $gallery_items The current gallery items
+   * @param optional array $options Options for library
    */
-  public function library_items($gallery_items = array(), $options) { }
+  public function library_items(array $gallery_items = array(), array $options = array()) { }
 
   /**
    * Display the gallery items for this library
+   *
+   * @param array $items The current gallery items
    */
   public function gallery_items(array $items) { }
 
   /**
    * Get the settings for the gallery
+   *
+   * @param int $post_id The post ID
    */
   public function get_settings($post_id) { }
 

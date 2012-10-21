@@ -265,6 +265,8 @@
 }
 
 
+/* miscellaneous */
+
 .drag-items-here
 {
   background: #fff;
@@ -278,3 +280,4 @@
   top: 0;
   width: 100%;
 }
+

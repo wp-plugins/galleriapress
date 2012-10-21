@@ -63,12 +63,18 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   /**
    * Display the library items
    */
-  public function library_items($options = array())
+  public function library_items($gallery_items, $options = array())
 	{ 
 		global $post;
 
 		$options = array_merge(array('page' => 1), $options);
     $page = $options['page'];
+
+    foreach($gallery_items as $item)
+    {
+      if($item->library == 'wp_media')
+        $gallery_ids[] = $item->id;
+    }
 
 		// get all images in library
 		$images_query = new WP_Query;
@@ -76,9 +82,11 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
                                          'post_type' => 'attachment',
                                          'post_status' => 'inherit',
                                          'orderby' => 'date',
+                                         'post__not_in' => $gallery_ids,
                                          'paged' => $options['page'],
                                          'order' => 'ASC'));
 
+    print_r($gallery_ids);
 		?>
     <div class="tablenav">
 

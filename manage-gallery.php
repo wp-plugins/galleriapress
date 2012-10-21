@@ -98,6 +98,7 @@ function galleriapress_gallery_box()
   if(!$items)
     $items = array();
 
+  print_r($items);
 ?>
   <div class="libraries-menu"><a data-show="items" class="current">Items</a> | <a data-show="settings">Settings</a></div>
 
@@ -121,7 +122,7 @@ function galleriapress_gallery_box()
 		<?php foreach($libraries as $key => $library): ?>
 
 		<div class="library" id="<?php echo $key; ?>-library">
-			<?php $library->library_items(); ?>
+			<?php $library->library_items($items); ?>
 		</div><!-- .library -->
 
     <div id="<?php echo $key; ?>-settings" class="library-settings">
