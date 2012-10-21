@@ -17,7 +17,7 @@ global $galleriapress_version;
 $galleriapress_version = '0.7.5';
 
 /* define version of galleria plugin */
-$galleria_version = '1.2.7';
+$galleria_version = '1.2.8';
 
 /* options for each gallery, to be outputed as JSON data */
 $galleriapress_galleries_options = array();
@@ -84,7 +84,7 @@ function galleriapress_init()
 	}
 
 	// register scripts
-	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.7.js', __FILE__), array('jquery'), $galleria_version, true);
+	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.8.min.js', __FILE__), array('jquery'), $galleria_version, true);
 	wp_register_script('galleriapress-manage-gallery', plugins_url('/js/manage-gallery.js', __FILE__), array('jquery', 'jquery-ui-sortable'), $galleriapress_version, true);
 	wp_register_script('galleriapress-wpgallery', plugins_url('/js/wpgallery.js', __FILE__), array('jquery'), $galleriapress_version, true);
 
