@@ -601,6 +601,8 @@ function galleriapress_gallery_items($post_id)
   $items = get_post_meta($post_id, 'galleriapress_items', true);
   if(!$items)
     $items = array();
+
+  return $items;
 }
 
  
