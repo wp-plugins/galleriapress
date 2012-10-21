@@ -18,7 +18,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		return array('name' => 'picasa',
 								 'title' => 'Picasa',
                  'icon' => plugins_url("picasa-icon.png", __FILE__),
-								 'galleriapress_version' => '0.7.4');
+								 'galleriapress_version' => '0.7.5');
 	}
 
 	public function init()
@@ -39,7 +39,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 			}
 	}
 
-	public function library_items()
+	public function library_items($gallery_items)
 	{
 		global $post;
 
@@ -152,6 +152,15 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
         $url = 'https://picasaweb.google.com/data/feed/api/user/' . $picasa_username . '/albumid/' . $elements[1];
         $photos_xml = file_get_contents($url);
 
+        // get all ids in gallery
+        $gallery_items = galleriapress_gallery_items($post_id);
+
+        foreach($gallery_items as $item)
+        {
+          if($item->library == 'picasa')
+            $gallery_ids[] = $item->id;
+        }
+
         if(!$photos_xml)
           return;
 
@@ -169,6 +178,10 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
         <ul class="clearfix grid">
           <?php
           foreach($feed->entry as $entry):
+
+            if(in_array($entry->id, $gallery_ids))
+              continue;
+
             $ns = $entry->getDocNamespaces();
             $group = $entry->children($ns['media'])->group;
 
