@@ -74,7 +74,7 @@ function galleriapress_the_content($content)
 
   if($post->post_type == 'gallery')
 	{
-		echo do_shortcode('[gallery]');
+		echo do_shortcode('[galleria]');
 	}
 
 	return $content;
@@ -192,16 +192,15 @@ function galleriapress_shortcode($attr)
 
 
 /**
- * Replace [gallery] shortcode
+ * Add [galleria] shortcode
  */	
-function galleriapress_replace_shortcode()
+function galleriapress_add_shortcode()
 {
-	remove_shortcode('gallery');
-	add_shortcode('gallery', 'galleriapress_shortcode');
+	add_shortcode('galleria', 'galleriapress_shortcode');
 }
 
 
-add_action('wp_head', 'galleriapress_replace_shortcode');
+add_action('wp_head', 'galleriapress_add_shortcode');
 
 
 ?>

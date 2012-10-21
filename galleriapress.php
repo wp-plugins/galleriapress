@@ -144,6 +144,7 @@ function galleriapress_init()
 }
 add_action('init', 'galleriapress_init');
 
+
 /**
  * Load galleriapress libraries in the libraries/ folder
  */
