@@ -17,7 +17,8 @@
   float: left;
   font-weight: bold;
   font-size: 13px;
-  margin: 10px 8px;
+  line-height: 32px;
+  margin: 0 8px;
 }
 
 .picasa-menu > li:hover
@@ -70,7 +71,7 @@
 
 .picasa-menu .browse
 {
-  margin-top: 10px;
+  vertical-align: middle;
 }
 
 #profiles-box .choose-profile
