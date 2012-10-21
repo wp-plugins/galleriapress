@@ -94,11 +94,7 @@ function galleriapress_gallery_box()
 
 	$libraries = galleriapress_libraries();
 
-  $items = get_post_meta($post->ID, 'galleriapress_items', true);
-  if(!$items)
-    $items = array();
-
-  print_r($items);
+  $items = galleriapress_gallery_items($post->ID);
 ?>
   <div class="libraries-menu"><a data-show="items" class="current">Items</a> | <a data-show="settings">Settings</a></div>
 
@@ -592,5 +588,20 @@ function galleriapress_libraries()
 
 	return $galleriapress_libraries;
 }
+
+
+/**
+ * Get gallery items
+ *
+ * @param int $post_id ID of the gallery
+ * @return array An array of gallery items
+ */
+function galleriapress_gallery_items($post_id)
+{
+  $items = get_post_meta($post_id, 'galleriapress_items', true);
+  if(!$items)
+    $items = array();
+}
+
  
 ?>
