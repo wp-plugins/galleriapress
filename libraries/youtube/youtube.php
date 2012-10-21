@@ -16,7 +16,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 		return array('name' => 'youtube',
 								 'title' => 'Youtube',
                  'icon' => plugins_url('youtube-icon.png', __FILE__),
-								 'galleriapress_version' => '0.7.4');
+								 'galleriapress_version' => '0.7.5');
 	}
 
   public function init()
@@ -37,7 +37,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 			}
 	}
 
-	public function library_items()
+	public function library_items($gallery_items)
 	{
 		global $post;
 
@@ -47,6 +47,13 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 
 		extract($options['options']);
 
+    $gallery_ids = array();
+    foreach($gallery_items as $item)
+    {
+      if($item->library == 'picasa')
+        $gallery_ids[] = $item->id;
+    }
+    
 		if(!$youtube_username):
 		?>
 			<p>Please enter a Youtube username</p>
@@ -62,6 +69,10 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 		<ul class="clearfix grid connected-sortable">
 			<?php
 				foreach($feed->entry as $entry):
+
+          if(in_array($entry->id, $gallery_ids))
+            continue;
+
 					$ns = $entry->getDocNamespaces();
 					$group = $entry->children($ns['media'])->group;
 					$video_id = $group->children($ns['yt'])->videoid;
