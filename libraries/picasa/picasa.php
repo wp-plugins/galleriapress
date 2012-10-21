@@ -155,6 +155,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
         // get all ids in gallery
         $gallery_items = galleriapress_gallery_items($post_id);
 
+        $gallery_ids = array();
         foreach($gallery_items as $item)
         {
           if($item->library == 'picasa')
