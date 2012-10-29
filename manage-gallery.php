@@ -548,11 +548,11 @@ function galleriapress_ajax_tinymce_dialog()
 
                                            var id = $('select[name=galleriapress_gallery]', $(this)).val();
                                            var w = window.dialogArguments || opener || parent || top;
-                                           var insert_str = '[gallery]';
+                                           var insert_str = '[galleria]';
                                            var ed = w.tinymce.EditorManager.activeEditor, g, el;
 
                                            if(id != -1)
-                                               insert_str = '[gallery gid=' + id + ']';
+                                               insert_str = '[galleria gid=' + id + ']';
 
 			                                     if((g = ed.dom.select('img.wpGallery')) && g[0])
                                            {
