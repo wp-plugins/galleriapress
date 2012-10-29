@@ -21,8 +21,9 @@ You can link galleries to a Gallery Profile. Change the profile settings and it 
 This plugin is still under development and still needs testing. I will be continually improving the plugin over time.
 
 
-== Upgrading from version before 0.7.5 ==
+== Upgrade Notice ==
 
+Upgrading to version 0.7.5:
 If you where using the [gallery] shortcode in your own (non gallery)
 posts, you will need to change it to the new [galleria] shortcode.
 
