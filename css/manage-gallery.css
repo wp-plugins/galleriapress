@@ -182,20 +182,23 @@
 
 #gallery-box .grid li
 {
-	float: left;
-	cursor: pointer;
   background: #ccc;
-  margin: 5px;
-  width: 150px;
+	cursor: pointer;
+	float: left;
   height: 150px;
+  line-height: 150px;
+  margin: 5px;
+  text-align: center;
+  width: 150px;
 }
 
 #gallery-box .grid li img
 {
-	display: block;
+	display: inline;
+  margin: 0 auto;
   max-width: 150px;
   max-height: 150px;
-  margin: 0 auto;
+  vertical-align: middle;
 }
 
 #galleriapress-libraries .library,
