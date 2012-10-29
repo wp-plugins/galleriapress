@@ -23,7 +23,7 @@ This plugin is still under development and still needs testing. I will be contin
 
 == Upgrade Notice ==
 
-Upgrading to version 0.7.5:
+= 0.7.5 =
 If you where using the [gallery] shortcode in your own (non gallery)
 posts, you will need to change it to the new [galleria] shortcode.
 
