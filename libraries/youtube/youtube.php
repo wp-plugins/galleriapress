@@ -45,6 +45,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
     switch($path_elements[0])
     {
     case 'search':
+    default:
       return $this->search($path_elements[1]);
       break;
     }
@@ -59,6 +60,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
     switch($path_elements[0])
     {
     case 'search':
+    default:
       if(isset($path_elements[1]))
         $search_value=$path_elements[1];
     ?>
@@ -68,11 +70,6 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
       </form>
     <?php
     break;
-
-    default:
-    ?>
-      <a class="button-secondary library-path" data-path="search/" data-library="youtube">Search</a>
-    <?php
     }
 
     $output = ob_get_clean();
