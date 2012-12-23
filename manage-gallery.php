@@ -118,7 +118,7 @@ function galleriapress_gallery_box()
 		<?php foreach($libraries as $key => $library): ?>
 
 		<div class="library" id="<?php echo $key; ?>-library">
-			<?php $library->library_items($items); ?>
+			<?php $library->library_items($items, "/"); ?>
 		</div><!-- .library -->
 
     <div id="<?php echo $key; ?>-settings" class="library-settings">

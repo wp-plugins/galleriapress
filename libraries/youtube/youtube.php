@@ -16,7 +16,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 		return array('name' => 'youtube',
 								 'title' => 'Youtube',
                  'icon' => plugins_url('youtube-icon.png', __FILE__),
-								 'galleriapress_version' => '0.7.5');
+								 'galleriapress_version' => '0.8');
 	}
 
   public function init()
@@ -37,41 +37,66 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 			}
 	}
 
-	public function library_items($gallery_items)
-	{
-		global $post;
+	public function library_items($gallery_items, $path)
+  {
+    $this->display_toolbar($path);
 
-		$options = get_post_meta($post->ID, 'galleriapress_youtube', true);
-		if(!$options)
-			$options = array('options' => array());
-
-		extract($options['options']);
-
-    $gallery_ids = array();
-    foreach($gallery_items as $item)
+    $path_elements = explode("/", $path);
+    switch($path_elements[0])
     {
-      if($item->library == 'picasa')
-        $gallery_ids[] = $item->id;
+    case 'search':
+      return $this->search($path_elements[1]);
+      break;
     }
-    
-		if(!$youtube_username):
-		?>
-			<p>Please enter a Youtube username</p>
-		<?php
-		else:
-			$url = 'http://gdata.youtube.com/feeds/api/users/' . $youtube_username . '/uploads?v=2';
+  }
 
-			$feed_xml = file_get_contents($url);
-			if($feed_xml):
-				$feed = new SimpleXMLElement($feed_xml);
+  public function display_toolbar($path)
+  {
+    ob_start();
 
-		?>
+    $path_elements = explode("/", $path);
+
+    switch($path_elements[0])
+    {
+    case 'search':
+      if(isset($path_elements[1]))
+        $search_value=$path_elements[1];
+    ?>
+      <form class="youtube-search">
+        <input type="text" id="youtube_query" placeholder="Search Youtube" value="<?php echo $path_elements[1]; ?>" />
+        <input type="submit" value="Search" class="button-primary library-path" data-path="search/{youtube_query}" data-library="youtube"  />
+      </form>
+    <?php
+    break;
+
+    default:
+    ?>
+      <a class="button-secondary library-path" data-path="search/" data-library="youtube">Search</a>
+    <?php
+    }
+
+    $output = ob_get_clean();
+    ?>
+
+    <div class="youtube-toolbar">
+      <?php echo $output; ?>
+    </div>
+
+    <?php
+  }
+
+  public function search($search_term = '')
+  {
+    $url = 'http://gdata.youtube.com/feeds/api/videos?q=' . urlencode($search_term) . '&v=2';
+    error_log($url);
+
+    $feed_xml = file_get_contents($url);
+    if($feed_xml):
+      $feed = new SimpleXMLElement($feed_xml);
+    ?>
 		<ul class="clearfix grid connected-sortable">
 			<?php
 				foreach($feed->entry as $entry):
-
-          if(in_array($entry->id, $gallery_ids))
-            continue;
 
 					$ns = $entry->getDocNamespaces();
 					$group = $entry->children($ns['media'])->group;
@@ -84,13 +109,10 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 				</li>
 			<?php endforeach; ?>
 		</ul>
+    <?php
 
-		<?php
-			endif;
-
-		endif;
-	}
-	
+    endif;
+  }
 
 	public function gallery_items($items)
 	{
@@ -112,43 +134,4 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
     //    return get_post_meta($post_id, 'galleriapress_wp_media', true);
   }
 
-
-	function settings_form()
-	{
-		global $post;
-
-		$options = get_post_meta($post->ID, 'galleriapress_youtube', true);
-
-		if(!$options)
-			$options = array();
-
-		extract($options['options']);
-
-	?>
-		<table class="form-table">
-      <tr>
-        <td>
-          <label for="youtube_username">Youtube Username</label>
-        </td>
-        <td>
-          <input type="text" name="youtube_username" value="<?php echo $youtube_username; ?>" />
-        </td>
-      </tr>
-    </table>
-	<?php
-	}
-
-	public function save_settings()
-	{
-		global $post;
-
-		$videos = $_POST['videos'];
-
-		$options = array('videos' => $videos,
-										 'options' => array());
-
-		$options['options']['youtube_username'] = $_POST['youtube_username'];
-
-		update_post_meta($post->ID, 'galleriapress_youtube', $options);
-	}
 }

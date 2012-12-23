@@ -41,7 +41,7 @@ abstract class GalleriaPress_Library
    * @param optional array $gallery_items The current gallery items
    * @param optional array $options Options for library
    */
-  public function library_items(array $gallery_items = array(), array $options = array()) { }
+  public function library_items($gallery_items = array(), $path = '/') { }
 
   /**
    * Display the gallery items for this library

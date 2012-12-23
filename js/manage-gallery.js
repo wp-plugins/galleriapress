@@ -159,6 +159,71 @@ Galleriapress =
                                                });
 
         update_box_height($('#galleriapress-items'));
+
+        $(document).on(
+            'submit',
+            'form.library-action',
+            function(e)
+            {
+                e.preventDefault();
+
+                var postdata = $(this).serializeArray();
+                postdata['library_action'] = $(this).data('action');
+                postdata['library'] = $(this).data('library');
+                postdata['action'] = 'galleriapress_library_form';
+
+                $.post(ajaxurl,
+                       postdata,
+                       function(response)
+                       {
+                           //                       Galleriapress.load_view();
+                       });
+            });
+
+        $(document).on(
+            'click',
+            '.library-path',
+            function(e)
+            {
+                e.preventDefault();
+
+                var path = $(this).data('path');
+                var parts = path.split('/');
+                var parsed = new Array();
+
+                for(var i = 0; i < parts.length; i++)
+                {
+                    var matches = parts[i].match(/\{(.*)\}/);
+                    if(matches && matches.length > 0)
+                    {
+                        matches.shift();
+                        parsed.push($('#' + matches[0]).val());
+                    }
+                    else
+                    {
+                        parsed.push(parts[i]);
+                    }
+                }
+
+                var parsed_path = parsed.join('/');
+
+                Galleriapress.load_library_path($(this).data('library'), parsed_path);
+            });
+    },
+
+    load_library_path: function(library, library_path)
+    {
+        $.post(ajaxurl,
+               {
+                   action: 'galleriapress_library_path',
+                   library: library,
+                   path: library_path,
+                   post_id: $('#post_ID').val()
+               },
+               function(response)
+               {
+                   $('#' + library + '-library').html(response);
+               });
     },
 
     show_drag_message: function()
@@ -169,7 +234,8 @@ Galleriapress =
     hide_drag_message: function()
     {
         $('.drag-items-here').hide();
-    }
+    },
+
 
 };
 

@@ -4,7 +4,7 @@
  * Plugin Name: GalleriaPress
  * Plugin URI: http://secondvariety.com
  * Description: Plugin for Galleria.js integration
- * Version: 0.7.5
+ * Version: 0.8
  * Author: Erez Odier
  * Author URI: http://secondvariety.com
  * License: GPLv2
@@ -153,6 +153,8 @@ add_action('init', 'galleriapress_init');
  */
 function galleriapress_load_libraries()
 {
+  global $galleriapress_libraries;
+
 	$libraries = glob(dirname(__FILE__) . "/libraries/*", GLOB_ONLYDIR | GLOB_MARK);
 
 	foreach($libraries as $directory)
@@ -173,7 +175,10 @@ function galleriapress_load_libraries()
 	foreach(get_declared_classes() as $class_name)
 	{
 		if(is_subclass_of($class_name, 'GalleriaPress_Library'))
-			$library_objects[] = new $class_name();
+    {
+			$library_object = new $class_name();
+      $galleriapress_libraries[$library_object->name] = $library_object;
+    }
 	}
 }
 
@@ -189,5 +194,52 @@ function galleriapress_admin_init()
 }
 
 add_action('admin_init', 'galleriapress_admin_init');
+
+
+function galleriapress_ajax_library_form()
+{
+  $libraries = galleriapress_libraries();
+
+  $library_action = $_POST['library_action'];
+  $library_name = $_POST['library'];
+
+  unset($_POST['library_action']);
+  unset($_POST['library']);
+
+  $library = $libraries[$library_name];
+  $method_name = 'form_' . $library_action;
+
+  if($library)
+  {
+    if(method_exists($library, $method_name))
+    {
+      $library->method_name($_POST);
+    }
+  }
+
+  exit;
+}
+
+add_action('wp_ajax_galleriapress_library_form', 'galleriapress_ajax_library_form');
+
+function galleriapress_ajax_library_path()
+{
+  $libraries = galleriapress_libraries();
+
+  $library_name = $_POST['library'];
+  $library = $libraries[$library_name];
+  $post_id = $_POST['post_id'];
+  $path = $_POST['path'];
+
+  if($library)
+  {
+    $items = galleriapress_gallery_items($post_id);
+    $library->library_items($items, $path);
+  }
+
+  exit;  
+}
+
+add_action('wp_ajax_galleriapress_library_path', 'galleriapress_ajax_library_path');
 
 ?>
