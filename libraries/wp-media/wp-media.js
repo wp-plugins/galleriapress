@@ -79,3 +79,8 @@ Galleriapress.wp_media =
     }
 
 };
+
+jQuery(document).ready(function()
+											 {
+													 Galleriapress.wp_media.init();
+											 });

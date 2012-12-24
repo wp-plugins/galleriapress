@@ -223,7 +223,7 @@ Galleriapress =
                function(response)
                {
                    $('#' + library + '-library').html(response);
-                   if(Galleriapress[library])
+                   if(Galleriapress[library] && Galleriapress[library].after_load_library_path)
                        Galleriapress[library].after_load_library_path();
                });
     },

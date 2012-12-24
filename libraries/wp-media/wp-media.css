@@ -28,3 +28,16 @@
 {
   margin-top: 0;
 }
+
+.wp_media-toolbar
+{
+  background-color: #ddd;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.wp_media-months,
+.wp_media-search
+{
+  float: left;
+}
