@@ -36,8 +36,14 @@
   padding: 8px;
 }
 
+.wp_media-toolbar .row
+{
+  margin-bottom: 10px;
+}
+
 .wp_media-months,
 .wp_media-search
 {
-  float: left;
+  display: inline-block;
+  margin-right: 10px;
 }

@@ -65,20 +65,43 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   {
     global $wpdb;
 
-    $this->display_toolbar($path);
-
     $path_elements = explode("/", $path);
 
-		// get all images in library
-		$images_query = new WP_Query;
-    $images = $images_query->query(array('posts_per_page' => 20,
-                                         'post_type' => 'attachment',
-                                         'post_status' => 'inherit',
-                                         'orderby' => 'date',
-                                         //                                         'post__not_in' => $gallery_ids,
-                                         //                                         'paged' => $options['page'],
-                                         'order' => 'DESC'));
+    $this->display_toolbar($path);
 
+    foreach($gallery_items as $item)
+    {
+      if($item->library == 'wp_media')
+        $gallery_ids[] = $item->id;
+    }
+
+    $images_query_args = array('posts_per_page' => 20,
+                               'post_type' => 'attachment',
+                               'post_status' => 'inherit',
+                               'orderby' => 'date',
+                               'post__not_in' => $gallery_ids,
+                               'order' => 'DESC');
+
+    switch($path_elements[0])
+    {
+    case 'search':
+      $images_query_args['s'] = $path_elements[1];
+      break;
+
+    case 'library':
+    default:
+      if(isset($path_elements[1]))
+      {
+        $year = substr($path_elements[1], 0, 4);
+        $month = substr($path_elements[1], 4, 2);
+
+        $images_query_args['year'] = $year;
+        $images_query_args['monthnum'] = $month;
+      }
+    }
+
+		$images_query = new WP_Query;
+    $images = $images_query->query($images_query_args);
 
     ?>
 		<ul class="clearfix grid">
@@ -107,40 +130,28 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
   {
     $path_elements = explode("/", $path);
 
-    ob_start();
-
-    switch($path_elements[0])
-    {
-    case "library":
-    ?>
-      <?php $this->months_dropdown(); ?>
-      <form class="wp_media-search">
-         <input type="input" placeholder="Search Library" id="wp_media_query" />
-         <input type="submit" class="library-path button-primary" data-library="wp_media" data-path="{wp_media_query}" />
-      </form>
-    <?php
-      break;
-    ?>
-    <?php
-    }
-
-    $output = ob_get_clean();
+    if($path_elements[0] == 'search')
+      $search_value = $path_elements[1];
+    else
+      $month = $path_elements[1];
+    
 
     ?>
     <div class="wp_media-toolbar">
-      <div class="row">
-        <a href="#" class="library-path" data-library="wp_media" data-path="library">Media</a>
-        <a href="#" class="insert-media">Add Media</a>
-      </div>
-      <div>
-      <?php echo $output; ?>
-      </div>
+      <a href="#" class="insert-media button">Add Media</a>
+
+      <?php $this->months_dropdown($month); ?>
+
+      <form class="wp_media-search">
+        <input type="input" placeholder="Search Library" id="wp_media_query" <?php if($search_value): ?> value="<?php echo $search_value; ?>" <?php endif; ?> />
+        <input type="submit" value="Search" class="library-path button-primary" data-library="wp_media" data-path="search/{wp_media_query}" />
+      </form>
+
     </div>
     <?php
-   }
+  }
 
-
-  public function months_dropdown()
+  public function months_dropdown($selected)
   {
 		global $wpdb, $wp_locale;
 
@@ -156,10 +167,9 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 		if ( !$month_count || ( 1 == $month_count && 0 == $months[0]->month ) )
 			return;
 
-		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 ?>
-		<select id="wp_media-months" onchange="Galleriapress.load_library_path('wp_media', 'library' + $(this).val())">
-			<option<?php selected( $m, 0 ); ?> value='0'><?php _e( 'Show all dates' ); ?></option>
+		<select id="wp_media-months" onchange="Galleriapress.load_library_path('wp_media', 'library/' + $(this).val())">
+			<option<?php selected( $selected, 0 ); ?> value='0'><?php _e( 'Show all dates' ); ?></option>
 <?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year )
@@ -169,7 +179,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 			$year = $arc_row->year;
 
 			printf( "<option %s value='%s'>%s</option>\n",
-				selected( $m, $year . $month, false ),
+				selected( $selected, $year . $month, false ),
 				esc_attr( $arc_row->year . $month ),
 				/* translators: 1: month name, 2: 4-digit year */
 				sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year )
@@ -180,83 +190,6 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 <?php
 
   }
-
-
-  /**
-   * Display the library items
-   */
-/*    public function library_items($gallery_items = array(), $options = array())
-	{ 
-		global $post;
-
-		$options = array_merge(array('page' => 1), $options);
-    $page = $options['page'];
-
-    foreach($gallery_items as $item)
-    {
-      if($item->library == 'wp_media')
-        $gallery_ids[] = $item->id;
-    }
-
-		// get all images in library
-		$images_query = new WP_Query;
-    $images = $images_query->query(array('posts_per_page' => 20,
-                                         'post_type' => 'attachment',
-                                         'post_status' => 'inherit',
-                                         'orderby' => 'date',
-                                         'post__not_in' => $gallery_ids,
-                                         'paged' => $options['page'],
-                                         'order' => 'ASC'));
-
-		?>
-    <div class="tablenav">
-
-      <div class="media-buttons"><?php do_action('media_buttons'); ?></div>
-
-      <div class="page-nav">
-        <?php if($page > 1): ?>
-        <a class="first-page" title="Go to the first page" data-page="1">&laquo;</a>
-        <a class="prev-page" title="Go to the previous page" data-page="<?php echo $page - 1; ?>">&lsaquo;</a>
-        <?php
-        endif;
-
-        if($images_query->max_num_pages > 1)
-          echo $page;
-
-        if($page < $images_query->max_num_pages):
-        ?>
-        <a class="next-page" title="Go to the next page" data-page="<?php echo $page + 1; ?>">&rsaquo;</a>
-        <a class="last-page" title="Go to the last page" data-page="<?php echo $images_query->max_num_pages; ?>">&raquo;</a>
-        <?php endif; ?>
-      </div>
-
-    </div>
-
-		<ul class="clearfix grid">
-
-			<?php
-				foreach($images as $image):
-					$image_src = wp_get_attachment_image_src($image->ID, 'thumbnail');
-          $title = htmlspecialchars($image->post_title, ENT_QUOTES);
-			?>
-
-			<li class="ui-state-default" data-itemid="<?php echo $image->ID; ?>" data-library="wp_media">
-				<img src="<?php echo $image_src[0]; ?>" title="<?php echo $title; ?>"/>
-			</li>
-
-			<?php endforeach; ?>
-
-		</ul>
-
-		<script type="text/javascript">
-			jQuery(document).ready(function()
-														 {
-																 Galleriapress.wp_media.init();
-														 });
-		</script>
-
-	<?php
-	}*/
 
   public function gallery_items($items)
   {
