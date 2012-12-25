@@ -155,6 +155,9 @@ function galleriapress_load_libraries()
 {
   global $galleriapress_libraries;
 
+  if(!empty($galleriapress_libraries))
+    return $galleriapress_libraries;
+
 	$libraries = glob(dirname(__FILE__) . "/libraries/*", GLOB_ONLYDIR | GLOB_MARK);
 
 	foreach($libraries as $directory)
@@ -169,15 +172,12 @@ function galleriapress_load_libraries()
     }
   }
 
-	$library_objects = array();
-
 	// instantiate each library
 	foreach(get_declared_classes() as $class_name)
 	{
 		if(is_subclass_of($class_name, 'GalleriaPress_Library'))
     {
 			$library_object = new $class_name();
-      $galleriapress_libraries[$library_object->name] = $library_object;
     }
 	}
 }

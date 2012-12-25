@@ -85,7 +85,6 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
   public function search($search_term = '')
   {
     $url = 'http://gdata.youtube.com/feeds/api/videos?q=' . urlencode($search_term) . '&v=2';
-    error_log($url);
 
     $feed_xml = file_get_contents($url);
     if($feed_xml):
