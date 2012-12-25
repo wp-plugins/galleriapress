@@ -19,24 +19,11 @@ Galleriapress.wp_media =
 																											 }).change();
 
 
+        this.after_load_library_path();
+    },
 
-        
-
-        $('#wp_media-library .page-nav a').click(function(e)
-                                                 {
-                                                     e.preventDefault();
-
-                                                     $.post(ajaxurl,
-                                                            {action: 'galleriapress_wp_media_library_items',
-                                                             page: $(this).data('page') },
-                                                            function(response)
-                                                            {
-                                                                if(response)
-                                                                    $('#wp_media-library').html(response);
-                                                            },
-                                                            'json');
-                                                 });
-
+    after_load_library_path: function()
+    {
 				$('#wp_media-library .grid > li').draggable(
 						{
 								appendTo: 'body',
@@ -52,7 +39,6 @@ Galleriapress.wp_media =
                     Galleriapress.hide_drag_message();
                 }
 						});
-
     }
 
 };
