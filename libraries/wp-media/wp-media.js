@@ -21,29 +21,6 @@ Galleriapress.wp_media =
 
 
         
-				// apply profile box
-				$('#profiles-box input.submit').click(function()
-																							{
-																									$.post(ajaxurl,
-																												 {
-																														 action: 'galleriapress_profile',
-																														 profile: $('#profiles-box .choose-profile').val(),
-																														 gallery_id: $('#profiles-box .gallery-id').val(),
-																														 link_profile: $('#profile-box .link-profile').val()
-																														 
-																												 },
-																												 function(response)
-																												 {
-																														 if(response)
-																														 {
-																																 for(name in response)
-																																 {
-																																		 $('input[name=' + name + '], select[name=' + name + ']').val(response[name]);
-																																 }
-																														 }
-																												 },
-																												 'json');
-																							});
 
         $('#wp_media-library .page-nav a').click(function(e)
                                                  {
