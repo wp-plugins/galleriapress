@@ -14,7 +14,7 @@
 /* define version of galleria press, make it global
 	 so that it can be used during plugin activation */
 global $galleriapress_version;
-$galleriapress_version = '0.7.5';
+$galleriapress_version = '0.8';
 
 /* define version of galleria plugin */
 $galleria_version = '1.2.8';
