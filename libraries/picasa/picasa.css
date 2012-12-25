@@ -5,10 +5,9 @@
 
 .picasa-menu
 {
-  border-bottom: 2px solid #ccc;
-  height: 32px;
-  margin: 0;
-  padding: 5px;
+  background-color: #ddd;
+  overflow: hidden;
+  padding: 8px;
 }
 
 .picasa-menu > li
@@ -74,7 +73,7 @@
   vertical-align: middle;
 }
 
-#profiles-box .choose-profile
+.nav-item
 {
-  margin-top: 10px;
+  display: inline-block;
 }

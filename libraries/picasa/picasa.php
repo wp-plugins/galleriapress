@@ -1,7 +1,11 @@
 <?php
 
+require_once('picasa-api.php');
+
 class GalleriaPress_Picasa extends GalleriaPress_Library
 {
+  private $api;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,7 +14,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     add_action('admin_print_scripts-post.php', array(&$this, 'admin_print_scripts'));
     add_action('admin_print_scripts-post-new.php', array(&$this, 'admin_print_scripts'));
 
-    add_action('wp_ajax_picasa_library_items', array(&$this, 'ajax_library_items'));
+    $this->api = new GalleriaPress_PicasaAPI();
 	}
 
 	public function info()
@@ -18,7 +22,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		return array('name' => 'picasa',
 								 'title' => 'Picasa',
                  'icon' => plugins_url("picasa-icon.png", __FILE__),
-								 'galleriapress_version' => '0.7.5');
+								 'galleriapress_version' => '0.8');
 	}
 
 	public function init()
@@ -39,20 +43,59 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 			}
 	}
 
-	public function library_items($gallery_items)
+	public function library_items($gallery_items, $path)
 	{
 		global $post;
 
-		$options = get_post_meta($post->ID, 'galleriapress_picasa', true);
-		extract($options);
+    $path_elements = explode("/", $path);
+    $mode = array_shift($path_elements);
 
-    if($picasa_username && $picasa_username != ''):
-      $this->display_all_albums($post->ID);
-    else:
-    ?>
-		<p>Please enter a username</p>
-		<?php
-		endif;
+    $gallery_ids = array();
+    foreach($gallery_items as $item)
+    {
+      if($item->library == 'picasa')
+        $gallery_ids[] = $item->id;
+    }
+
+    $this->display_toolbar($path);
+
+
+    switch($mode)
+    {
+    case "user":
+      $username = array_shift($path_elements);
+      if($username)
+      {
+        preg_match("/^albums\/?(.*)?\/?$/", implode("/", $path_elements), $matches);
+
+        if(!empty($matches))
+        {
+          if($matches[1])
+          {
+            $items = $this->api->user_album($username, $matches[1]);
+            $this->display_items($items);
+          }
+          else
+          {
+            $albums = $this->api->user_albums($username);
+
+            foreach($albums as $album):
+              $attr = $album->media->group->thumbnail->attributes();
+          ?>
+
+          <div class="picasa-album library-path" data-library="picasa" data-path="user/<?php echo $username; ?>/albums/<?php echo $album->gphoto->id; ?>">
+            <img src="<?php echo $attr['url']; ?>" width="<?php echo $attr['width']; ?>" height="<?php echo $attr['height']; ?>" />
+            <span class="title"><?php echo $album->gphoto->name; ?></span>
+          </div>
+
+          <?php
+            endforeach;
+          }
+        }
+      }
+
+     break;
+     }
 	}
 
 	public function gallery_items($items)
@@ -121,138 +164,6 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		update_post_meta($post->ID, 'galleriapress_picasa', $options);
 	}
 
-  /**
-   * AJAX handler for browsing picasa library
-   */
-  public function ajax_library_items()
-  {
-    // find out which gallery and path
-    $post_id = (int)$_POST['post_id'];
-    $path = htmlentities($_POST['path']);
-
-		$options = get_post_meta($post_id, 'galleriapress_picasa', true);
-		extract($options);
-
-    // must have a username
-    if(!$picasa_username)
-      exit;
-
-    // parse according to supplied path
-    $elements = explode("/", $path);
-
-    ob_start();
-
-    $this->display_loading();
-
-    if($elements[0] == 'albums')
-    {
-      // specific album
-      if(count($elements) == 2)
-      {
-        $url = 'https://picasaweb.google.com/data/feed/api/user/' . $picasa_username . '/albumid/' . $elements[1];
-        $photos_xml = file_get_contents($url);
-
-        // get all ids in gallery
-        $gallery_items = galleriapress_gallery_items($post_id);
-
-        $gallery_ids = array();
-        foreach($gallery_items as $item)
-        {
-          if($item->library == 'picasa')
-            $gallery_ids[] = $item->id;
-        }
-
-        if(!$photos_xml)
-          return;
-
-        $feed = new SimpleXMLElement($photos_xml);
-        ?>
-
-        <ul class="picasa-menu">
-          <li class="browse" data-path="albums">Back</li>
-          <?php
-            $gphoto = $feed->children($ns['gphoto']);
-            echo $gphoto->name;
-          ?>
-        </ul>
-
-        <ul class="clearfix grid">
-          <?php
-          foreach($feed->entry as $entry):
-
-            if(in_array($entry->id, $gallery_ids))
-              continue;
-
-            $ns = $entry->getDocNamespaces();
-            $group = $entry->children($ns['media'])->group;
-
-            $gphoto = $entry->children($ns['gphoto']);
-            $photo_width = $gphoto->width;
-
-            // attribute for the source image
-            $src_attr = $entry->content[0]->attributes();
-
-            $src_url = (string)$src_attr['src'];
-            $src_end = basename($src_url);
-            $src_url = str_replace($src_end, "s" . $photo_width . "/" . $src_end, $src_url);
-
-            // attribute for the thumbnail
-            $attr = $group->thumbnail[1]->attributes();
-          ?>
-           <li class="ui-state-default" data-itemid="<?php echo $entry->id; ?>" data-library="picasa">
-             <img src="<?php echo $attr['url']; ?>" title="<?php echo $group->title; ?>" data-image="<?php echo $src_url; ?>" />
-           </li>
-          <?php endforeach; ?>
-        </ul>
-
-        <?php
-      }
-      // all albums
-      else
-      {
-        $this->display_all_albums($post_id);
-      }
-    }
-    elseif($elements[0] == 'search')
-    {
-      if(isset($_POST['picasa_search']))
-        $search_query = htmlentities($_POST['picasa_search']);
-      ?>
-      <ul class="picasa-menu">
-        <li>
-          <input type="text" name="picasa_search" class="picasa-search" placeholder="Search..."/>
-          <input type="button"  class="button browse" data-path="search" value="Search" />
-        </li>
-        <li class="browse" data-path="albums">Back</li>
-      </ul>
-      <?php
-      if($search_query)
-      {
-        $url = 'https://picasaweb.google.com/data/feed/api/all?q=' . $search_query . '?&max-results=10';        
-
-        $photos_xml = file_get_contents($url);
-
-        if(!$photos_xml)
-          return;
-
-        $feed = new SimpleXMLElement($photos_xml);
-        $this->display_items($feed->entry);
-      }
-    }
-
-    ?>
-      <script type="text/javascript">
-        Galleriapress.picasa.init_draggable();
-      </script>
-    <?php
-
-    $output = ob_get_clean();
-
-    echo json_encode(array('html' => $output));
-
-    exit;
-  }
-
   protected function display_items($entries)
   {
     ?>
@@ -271,65 +182,50 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     <?php
   }
 
-  protected function display_all_albums($post_id)
+  protected function display_toolbar($path)
   {
-		$options = get_post_meta($post_id, 'galleriapress_picasa', true);
-    $albums = $this->get_albums($options['picasa_username']);
+    $path_elements = explode("/", $path);
+    $mode = array_shift($path_elements);
 
-    $this->display_default_menu();
-
-    foreach($albums as $album):
-      $attr = $album->media->group->thumbnail->attributes();
-        ?>
-
-        <div class="picasa-album browse" data-path="albums/<?php echo $album->gphoto->id; ?>">
-          <img src="<?php echo $attr['url']; ?>" width="<?php echo $attr['width']; ?>" height="<?php echo $attr['height']; ?>" />
-          <span class="title"><?php echo $album->gphoto->name; ?></span>
-        </div>
-
-        <?php
-    endforeach;
-  }
-
-  protected function display_loading()
-  {
-    ?>
-    <div class="picasa-loading">
-      Loading...
-    </div>
-    <?php
-  }
-
-  protected function display_default_menu()
-  {
-    ?>
-    <ul class="picasa-menu">
-      <li class="browse" data-path="albums">Albums</li>
-      <li class="browse" data-path="search">Search</li>
-    </ul>
-    <?php
-  }
-
-  protected function get_albums($username)
-  {
-    $url = 'https://picasaweb.google.com/data/feed/api/user/' . $username;
-    $feed_xml = file_get_contents($url);
-
-    if($feed_xml)
-      $feed = new SimpleXMLElement($feed_xml);
-
-    $albums = array();
-
-    foreach($feed->entry as $entry)
+  ?>
+  <div class="picasa-menu">
+  <?php
+    switch($mode)
     {
-      $ns = $entry->getDocNamespaces();
-      $gphoto = $entry->children($ns['gphoto']);
-      $media = $entry->children($ns['media']);
+      case "user":
+        $username = array_shift($path_elements);
+  ?>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
+      <form class="form-picasa-user nav-item">
+        <input id="picasa_user" placeholder="Enter username" <?php if($username): ?>value="<?php echo $username; ?>" <?php endif; ?>/>
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="user/{picasa_user}" value="Update" />
+      </form>
+  <?php if($username): ?>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>/albums">Albums</a>
+  <?php endif;
+        break;
 
-      $albums[] = (object)array('gphoto' => $gphoto, 'media' => $media);
+      case "search":
+        $search_term = array_shift($path_elements);
+  ?>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
+      <form class="form-picasa-search nav-item">
+        <input id="picasa_search" placeholder="Search Picasa" <?php if($search_term): ?>value="<?php echo $search_term; ?>" <?php endif; ?>/>
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="search/{picasa_search}" value="Update" />
+      </form>
+
+      <?php
+      break;
+    default:
+      ?>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user">User</a>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="search">Search</a>
+      <?php
+      break;
     }
-
-    return $albums;
+      ?>
+    </div><!-- .picasa-menu -->
+  <?php
   }
 }
 
