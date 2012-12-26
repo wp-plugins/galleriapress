@@ -26,22 +26,6 @@ add_action('admin_print_scripts-post.php', 'galleriapress_admin_gallery_enqueue_
 add_action('admin_print_scripts-post-new.php', 'galleriapress_admin_gallery_enqueue_scripts');
 
 /**
- * Enqueue admin scripts
- */
-function galleriapress_admin_print_scripts()
-{
-	global $post;
-
-	// don't use this in gallery post or profiles post type
-  if(!in_array($_GET['post_type'], array('gallery', 'gallery_profile')) &&
-     !in_array($post->post_type, array('gallery', 'gallery_profile')))
-		wp_enqueue_script('galleriapress-wpgallery');
-}
-
-add_action('admin_print_scripts', 'galleriapress_admin_print_scripts');
-
-
-/**
  * Enqueue needed styles for admin, only for gallery and gallery_profile post types
  *
  * @param $hook The admin page hook
@@ -53,7 +37,6 @@ function galleriapress_admin_gallery_enqueue_styles($hook)
   if(in_array($_GET['post_type'], array('gallery', 'gallery_profile')) ||
      in_array($post->post_type, array('gallery', 'gallery_profile')))
   {
-    wp_enqueue_style('jquery-tools');
     wp_enqueue_style('galleriapress-manage-gallery');
   }
 }
