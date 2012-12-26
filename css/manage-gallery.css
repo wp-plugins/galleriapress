@@ -75,6 +75,11 @@
   z-index: 2
 }
 
+.libraries-tabs li a:hover
+{
+  background: #eee;
+}
+
 .libraries-tabs li a:focus,
 .libraries-tabs li a:active
 {
