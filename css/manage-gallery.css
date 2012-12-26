@@ -75,6 +75,12 @@
   z-index: 2
 }
 
+.libraries-tabs li a:focus,
+.libraries-tabs li a:active
+{
+  outline: none;
+}
+
 .libraries-tabs li img
 {
   display: block;
@@ -101,9 +107,9 @@
 .libraries-tabs li a.current
 {
 	font-weight: bold;
-	background: #eee;
+	background: #ddd;
   border: 1px solid #ddd;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ddd;
 	padding: 6px 7px;
 }
 
