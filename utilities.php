@@ -101,14 +101,6 @@ function galleriapress_process_options($gallery_options)
 		$gallery_options['height'] = $image_sizes[$size]['height'];
 	}		
 
-	// remove options that are not needed
-	unset($gallery_options['custom_size_w']);
-	unset($gallery_options['custom_size_h']);
-
-	// convert from galleriapress options to galleria options
-	$gallery_options['popupLinks'] = $gallery_options['popup_links'];
-	unset($gallery_options['popup_links']);
-
 	return $gallery_options;
 }
 

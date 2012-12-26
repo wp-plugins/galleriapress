@@ -209,9 +209,17 @@ function galleriapress_common_settings_box()
 			<label>Custom Dimensions</label>
 		</th>
 		<td>
-			<input type="text" name="custom_gallery_size_w" value="<?php echo $custom_gallery_size_w; ?>" /><span>px</span>
-			<span>x</span>
-			<input type="text" name="custom_gallery_size_h" value="<?php echo $custom_gallery_size_h; ?>" /><span>px</span>
+			<input type="text" name="custom_gallery_size_w" value="<?php echo $custom_gallery_size_w; ?>" />
+      <select name="custom_gallery_size_w_unit">
+        <option value="px" <?php echo selected($custom_gallery_size_w_unit, 'px'); ?>>px</option>
+        <option value="%" <?php echo selected($custom_gallery_size_w_unit, '%'); ?>>%</option>
+      </select>
+			<span>by</span>
+			<input type="text" name="custom_gallery_size_h" value="<?php echo $custom_gallery_size_h; ?>" />
+      <select name="custom_gallery_size_h_unit">
+        <option value="px" <?php echo selected($custom_gallery_size_h_unit, 'px'); ?>>px</option>
+        <option value="%" <?php echo selected($custom_gallery_size_h_unit, '%'); ?>>%</option>
+      </select>
 		</td>
 	</tr>
 
@@ -317,23 +325,18 @@ function galleriapress_save_gallery($post_id)
   $new_profile = (int)$_POST['choose_profile'];
   $new_link_profile = (int)$_POST['link_profile'];
 
-  if($new_profile != 0)
-  {
-    $new_options = get_post_meta($new_profile, 'galleriapress_common', true);
-  }
-  else
-  {
-    // general options
-    $option_names = array('captionOpen',
-                          'captionPosition',
-                          'gallery_size',
-                          'custom_gallery_size_w',
-                          'custom_gallery_size_h',
-                          'theme');
-
-    foreach($option_names as $op)
-      $new_options[$op] = $_POST[$op];
-  }
+  // general options
+  $option_names = array('captionOpen',
+                        'captionPosition',
+                        'gallery_size',
+                        'custom_gallery_size_w',
+                        'custom_gallery_size_w_unit',
+                        'custom_gallery_size_h',
+                        'custom_gallery_size_h_unit',
+                        'theme');
+  
+  foreach($option_names as $op)
+    $new_options[$op] = $_POST[$op];
 
   update_post_meta($post->ID, 'galleriapress_profile', $new_profile);
   update_post_meta($post->ID, 'galleriapress_link_profile', $new_link_profile);

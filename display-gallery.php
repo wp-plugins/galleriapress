@@ -30,36 +30,12 @@ function galleriapress_print_scripts()
   jQuery(document).ready(function()
 												 {
 														 Galleria.loadTheme('<?php echo plugins_url("/galleria", __FILE__);?>/themes/classic/galleria.classic.js');
-														 jQuery('.galleria').each(function()
-																											{
-																													var gid = jQuery(this).data('gallery_id');
-																													var options = galleriapress_options[gid];
-
-																													var galleria_elem = this;
-
-																													var extend;
-																													if(options['caption_open'] || options['caption_position'])
-																													{
-																															options['extend'] = function()
-																															{
-																																	if(options['captionOpen'])
-																																	{
-																																			jQuery('.galleria-info-text, .galleria-info-close', jQuery(galleria_elem)).show();
-																																			jQuery('.galleria-info-link', jQuery(galleria_elem)).hide();
-																																	}
-																																	if(options['captionPosition'])
-																																	{
-																																			jQuery('.galleria-info', jQuery(galleria_elem)).addClass(options['caption_position']);
-																																	}
-																															}
-																													};
-
-																													jQuery(this).galleria(options);
-																											});
-
+                             Galleriapress.init_galleries();
 												 });
 </script>
 <?php
+
+  wp_enqueue_script('galleriapress-display');
 }
 
 add_action('wp_footer', 'galleriapress_print_scripts');
