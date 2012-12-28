@@ -126,7 +126,7 @@ function galleriapress_gallery_box()
 
 	</div><!-- .galleriapress-items-container -->
 
-  <a class="remove-all button-secondary" href="#">Remove All</a>
+  <a class="remove-all button-primary" href="#">Remove All</a>
 
   <input type="hidden" value="<?php echo htmlspecialchars(json_encode($items)); ?>" name="galleriapress_items_data" id="galleriapress_items_data" />
 
