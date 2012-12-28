@@ -50,7 +50,7 @@ function galleriapress_get_themes($type = 'all')
       $theme_file = glob($path . "/galleria.*.js");
 
       if(!empty($theme_file))
-        $core_themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js');
+        $core_themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js', __FILE__);
     }
   }
 
