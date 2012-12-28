@@ -2,6 +2,24 @@ Galleriapress.picasa =
 {
     init: function()
     {
+        this.after_load_library_path();
+
+        $('.libraries-tabs .picasa').on(
+            'click',
+            this.calculate_grid_height);
+
+        $('#galleriapress-libraries').on(
+            'resize',
+            this.calculate_grid_height);
+    },
+
+    calculate_grid_height: function()
+    {
+        $('#picasa-library .grid').height($('#galleriapress-libraries').height() - $('.picasa-toolbar').outerHeight(true));
+    },
+
+    after_load_library_path: function()
+    {
         $('#picasa-library .grid > li').draggable(
 						{
 								appendTo: 'body',
@@ -17,15 +35,7 @@ Galleriapress.picasa =
                     Galleriapress.hide_drag_message();
                 }
 						});
-    },
-
-    after_load_library_path: function()
-    {
-        this.init();
-
-        $('#picasa-library .grid').height($('#galleriapress-libraries').height() - $('.picasa-toolbar').outerHeight(true) - 5);
     }
-
 };
 
 jQuery(document).ready(function()

@@ -52,11 +52,7 @@ Galleriapress =
         
         $('#galleriapress-libraries').resizable(
             {
-                handles: 's',
-                resize: function(event, ui)
-                {
-                    $('#galleriapress-libraries .library').height(ui.size.height);
-                }
+                handles: 's'
             });
 
         var update_box_height = function (grid)
@@ -142,6 +138,22 @@ Galleriapress =
                 remove: reset_items_data,
                 update: reset_items_data
 				    }).disableSelection();
+
+				// custom size
+				$('.size select, .gallery-size select').change(function()
+																											 {
+																													 var form_table = $(this).parents('.form-table');
+																													 custom_size = $('.custom-size', form_table);
+
+																													 if($(this).val() == 'custom')
+																													 {
+																															 custom_size.slideDown();
+																													 }
+																													 else
+																													 {
+																															 custom_size.slideUp();
+																													 }
+																											 }).change();
 
 				$('.remove-all').click(function(e)
 															 {

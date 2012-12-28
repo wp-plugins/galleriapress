@@ -3,6 +3,20 @@ Galleriapress.youtube =
     init: function()
     {
         this.after_load_library_path();
+
+        $('.libraries-tabs .youtube').on(
+            'click',
+            this.calculate_grid_height);
+
+
+        $('#galleriapress-libraries').on(
+            'resize',
+            this.calculate_grid_height);
+    },
+
+    calculate_grid_height: function()
+    {
+        $('#youtube-library .grid').height($('#galleriapress-libraries').height() - $('.youtube-toolbar').outerHeight(true));
     },
 
     after_load_library_path: function()
@@ -22,8 +36,6 @@ Galleriapress.youtube =
                     Galleriapress.hide_drag_message();
                 }
 						});
-
-        $('#youtube-library .grid').height($('#galleriapress-libraries').height() - $('.youtube-toolbar').outerHeight(true) - 29);
 		}
 
 }

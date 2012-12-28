@@ -2,24 +2,22 @@ Galleriapress.wp_media =
 {
     init: function()
     {
-				// custom size
-				$('.size select, .gallery-size select').change(function()
-																											 {
-																													 var form_table = $(this).parents('.form-table');
-																													 custom_size = $('.custom-size', form_table);
-
-																													 if($(this).val() == 'custom')
-																													 {
-																															 custom_size.slideDown();
-																													 }
-																													 else
-																													 {
-																															 custom_size.slideUp();
-																													 }
-																											 }).change();
-
-
         this.after_load_library_path();
+
+        $('.libraries-tabs .wp_media').on(
+            'click',
+            this.calculate_grid_height);
+
+        $('#galleriapress-libraries').on(
+            'resize',
+            this.calculate_grid_height);
+
+        this.calculate_grid_height();
+    },
+
+    calculate_grid_height: function()
+    {
+        $('#wp_media-library .grid').height($('#galleriapress-libraries').height() - $('.wp_media-toolbar').outerHeight(true));
     },
 
     after_load_library_path: function()
@@ -40,9 +38,6 @@ Galleriapress.wp_media =
                 }
 						});
 
-        $('#wp_media-library .grid').height($('#galleriapress-libraries').height() - $('.wp_media-toolbar').outerHeight(true) - 5);
-
-        $('#galleriapress-libraries').resizable('option', 'alsoResize', '#wp_media-library .grid');
     }
 
 };
