@@ -170,6 +170,10 @@ function galleriapress_common_settings_box()
   $common_options = get_post_meta($post->ID, 'galleriapress_common', true);
 
   extract($common_options);
+
+  $transitions = array('fade', 'flash', 'pulse', 'slide', 'fadeslide');
+  if(!$transition) $transition = 'slide';
+
 ?>
 <input type="hidden" name="galleriapress_noncename" id="galleriapress_noncename" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
 
@@ -207,10 +211,35 @@ function galleriapress_common_settings_box()
 		</td>
 	</tr>
 
+  <tr>
+    <th><label for="autoplay">Autoplay<label></th>
+    <td>
+      <input type="text" name="autoplay" value="<?php echo $autoplay; ?>" />
+      <span>(ms) Leave blank to disable</span>
+    </td>
+  </tr>
+
+  <tr>
+    <th><label for="carousel">Carousel</label></th>
+    <td><input type="checkbox" name="carousel" value="1" <?php echo checked($carousel, 1); ?> /></td>
+  </tr>
+
+  <tr>
+    <th><label for="transition">Transition</label></th>
+    <td>
+      <select name="transition">
+        <?php foreach($transitions as $t): ?>
+        <option value="<?php echo $t; ?>" <?php echo selected($transition, $t); ?>><?php echo $t; ?></option>
+        <?php endforeach; ?>
+      </select>
+    </td>
+  </select>
+
 	<tr>
 		<th><label for="captionOpen">Caption Open</label></th>
 		<td><input type="checkbox" name="captionOpen" value="1" <?php echo checked($captionOpen, 1); ?> /></td>
 	</tr>
+  <tr>
 		<th><label for="captionPosition">Caption Position</label></th>
 		<td>
 			<select name="captionPosition">
@@ -316,6 +345,9 @@ function galleriapress_save_gallery($post_id)
                         'custom_gallery_size_w_unit',
                         'custom_gallery_size_h',
                         'custom_gallery_size_h_unit',
+                        'autoplay',
+                        'carousel',
+                        'transition',
                         'theme');
   
   foreach($option_names as $op)
