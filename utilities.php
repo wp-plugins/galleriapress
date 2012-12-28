@@ -23,19 +23,57 @@ function galleriapress_image_sizes()
 }
 
 /**
- * Get installed theme names and url paths
+ * Get installed theme names and url paths. The $type param
+ * can take the following values:
+ *   - all (or any other value): all themes, core or uploaded. The default if no type specified
+ *   - core: only the themes included with Galleria
+ *   - upload: the uploaded theme
+ *
+ * @param $type Optional Which theme to return
+ * @return array An array of the the theme urls indexed by theme name
  */
-function galleriapress_get_themes()
+function galleriapress_get_themes($type = 'all')
 {
-	$theme_dirs = glob(dirname(__FILE__) . '/galleria/themes/*', GLOB_ONLYDIR);
-	$themes = array();
+  $gp_upload_path = galleriapress_theme_upload_path();
 
-	foreach($theme_dirs as $theme)
-	{
-		$theme_name = basename($theme);
-		if(file_exists($theme . '/galleria.' . $theme_name . '.js'))
-			$themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js');
-	}
+  $core_themes_paths = glob(dirname(__FILE__) . "/galleria/themes/*", GLOB_ONLYDIR);
+  $uploaded_themes_paths = glob($gp_upload_path . "/*", GLOB_ONLYDIR);
+
+  $core_themes = array();
+  $uploaded_themes = array();
+
+  if(!empty($core_themes_paths))
+  {
+    foreach($core_themes_paths as $path)
+    {
+      $theme_name = basename($path);
+      $core_themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js');
+    }
+  }
+
+  if(!empty($uploaded_themes_paths))
+  {
+    $gp_upload_url = galleriapress_theme_upload_url();
+
+    foreach($uploaded_themes_paths as $path)
+    {
+      $theme_name = basename($path);
+      $uploaded_themes[$theme_name] = $gp_upload_url . $theme_name . "/galleria." . $theme_name . ".js";
+    }
+  }
+
+  if($type == 'core')
+  {
+    $themes = $core_themes;
+  }
+  elseif($type == 'upload')
+  {
+    $themes = $uploaded_themes;
+  }
+  else
+  {
+    $themes = array_merge($core_themes, $uploaded_themes);
+  }
 
 	return $themes;
 }
@@ -178,5 +216,14 @@ function galleriapress_theme_upload_path()
 
   return $upload_path;
 }
+
+function galleriapress_theme_upload_url()
+{
+  $wp_upload_dir = wp_upload_dir();
+  $upload_url = $wp_upload_dir['baseurl'] . "/galleria/themes/";
+
+  return $upload_url;
+}
+
 
 ?>

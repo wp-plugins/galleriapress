@@ -14,9 +14,17 @@ function galleriapress_settings_page()
   <h4>Installed themes</h4>
 
   <?php
-    $theme_dirs = glob(dirname(__FILE__) . "/galleria/themes/*", GLOB_ONLYDIR);
-    foreach($theme_dirs as $dir)
+    $gp_upload_path = galleriapress_theme_upload_path();
+
+    $core_themes = glob(dirname(__FILE__) . "/galleria/themes/*", GLOB_ONLYDIR);
+    $uploaded_themes = glob($gp_upload_path . "/*", GLOB_ONLYDIR);
+
+    foreach($core_themes as $dir)
       echo "<p>" . basename($dir) . "</p>";
+
+    foreach($uploaded_themes as $dir)
+      echo "<p>" . basename($dir) . "</p>";
+
   ?>
 
   <h4>Upload theme</h4>
