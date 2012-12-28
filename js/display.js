@@ -42,6 +42,7 @@ Galleriapress.init_galleries = function()
                                 }
                             }
 
+														Galleria.loadTheme(options.theme);
                             Galleria.run('#galleria-' + gid, options);
 												});
 };

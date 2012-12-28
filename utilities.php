@@ -47,7 +47,10 @@ function galleriapress_get_themes($type = 'all')
     foreach($core_themes_paths as $path)
     {
       $theme_name = basename($path);
-      $core_themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js');
+      $theme_file = glob($path . "/galleria.*.js");
+
+      if(!empty($theme_file))
+        $core_themes[$theme_name] = plugins_url('/galleria/themes/' . $theme_name . '/galleria.' . $theme_name . '.js');
     }
   }
 
@@ -58,7 +61,10 @@ function galleriapress_get_themes($type = 'all')
     foreach($uploaded_themes_paths as $path)
     {
       $theme_name = basename($path);
-      $uploaded_themes[$theme_name] = $gp_upload_url . $theme_name . "/galleria." . $theme_name . ".js";
+      $theme_file = glob($path . "/galleria.*.js");
+
+      if(!empty($theme_file))
+        $uploaded_themes[$theme_name] = $gp_upload_url . $theme_name . "/" . basename($theme_file[0]);
     }
   }
 

@@ -168,6 +168,7 @@ function galleriapress_common_settings_box()
   $themes = galleriapress_get_themes();
 
   $common_options = get_post_meta($post->ID, 'galleriapress_common', true);
+
   extract($common_options);
 ?>
 <input type="hidden" name="galleriapress_noncename" id="galleriapress_noncename" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
@@ -222,16 +223,15 @@ function galleriapress_common_settings_box()
 	</tr>
 
 	<tr>
-    <th><lable for="theme">Theme</label></th>
+    <th><label for="theme">Theme</label></th>
 		<td class="themes">
       <select name="theme">
 			<?php foreach($themes as $theme_name => $url): ?>
-      <option <?php echo selected($theme, $theme_name); ?> value="<?php echo $theme_name; ?>"><?php echo $theme_name; ?></option>
+      <option <?php echo selected($theme, $url); ?> value="<?php echo $url; ?>"><?php echo $theme_name; ?></option>
 			<?php endforeach; ?>
       </select>
 		</td>
 	</tr>
-	<input type="hidden" name="theme" value="<?php echo $theme; ?>" />
 </table>
 
 <input type="hidden" name="galleriapress_noncename" id="galleriapress_noncename" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />

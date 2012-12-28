@@ -22,6 +22,8 @@ function galleriapress_print_scripts()
 	wp_print_scripts('galleria');
 	$image_sizes = galleriapress_image_sizes();
 
+
+  //  print_r($galleriapress_galleries_options);
 ?>
 <script type="text/javascript">
 
@@ -29,7 +31,6 @@ function galleriapress_print_scripts()
 
   jQuery(document).ready(function()
 												 {
-														 Galleria.loadTheme('<?php echo plugins_url("/galleria", __FILE__);?>/themes/classic/galleria.classic.js');
                              Galleriapress.init_galleries();
 												 });
 </script>
