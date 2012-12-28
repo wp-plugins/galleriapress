@@ -35,7 +35,8 @@
 .ui-resizable-n { cursor: n-resize; height: 4px; width: 100%; top: -5px; left: 0; }
 .ui-resizable-s { cursor: s-resize; height: 4px; width: 100%; bottom: -5px; left: 0; }
 
-#galleriapress-libraries .ui-resizable-s
+#galleriapress-libraries .ui-resizable-s,
+.galleriapress-items-container .ui-resizable-s
 {
   background: #555;
   border: 1px solid #555;
@@ -152,8 +153,10 @@
 {
   border: 1px solid #ddd;
 	clear: both;
-  height: 220px;
-	margin: 0 0 20px;
+  height: 300px;
+  margin-bottom: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
   position: relative;
   width: 100%;
 }
@@ -162,8 +165,8 @@
 {
   background: #ddd;
   border: 1px solid #ddd;
-  position: relative;
   margin: 0;
+  position: relative;
 }
 
 #galleriapress-items > li
@@ -217,8 +220,7 @@
   vertical-align: middle;
 }
 
-#galleriapress-libraries .scrollable,
-.galleriapress-items-container
+#galleriapress-libraries .scrollable
 {
   overflow-y: scroll;
 }
