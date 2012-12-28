@@ -33,6 +33,7 @@ require_once(dirname(__FILE__) . '/library.php');
 require_once(dirname(__FILE__) . '/display-gallery.php');
 require_once(dirname(__FILE__) . '/manage-gallery.php');
 require_once(dirname(__FILE__) . '/settings.php');
+require_once(dirname(__FILE__) . '/widget.php');
 
 if(version_compare($wp_version, '3.5', '<'))
   require_once(dirname(__FILE__) . '/tinymce.php');

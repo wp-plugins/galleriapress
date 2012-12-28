@@ -21,9 +21,6 @@ function galleriapress_print_scripts()
 
 	wp_print_scripts('galleria');
 	$image_sizes = galleriapress_image_sizes();
-
-
-  //  print_r($galleriapress_galleries_options);
 ?>
 <script type="text/javascript">
 
