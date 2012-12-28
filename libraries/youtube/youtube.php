@@ -90,7 +90,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
     if($feed_xml):
       $feed = new SimpleXMLElement($feed_xml);
     ?>
-		<ul class="clearfix grid connected-sortable">
+		<ul class="clearfix grid connected-sortable scrollable">
 			<?php
 				foreach($feed->entry as $entry):
 

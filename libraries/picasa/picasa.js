@@ -22,6 +22,8 @@ Galleriapress.picasa =
     after_load_library_path: function()
     {
         this.init();
+
+        $('#picasa-library .grid').height($('#galleriapress-libraries').height() - $('.picasa-toolbar').outerHeight(true) - 5);
     }
 
 };

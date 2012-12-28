@@ -104,7 +104,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
     $images = $images_query->query($images_query_args);
 
     ?>
-		<ul class="clearfix grid">
+		<ul class="clearfix grid scrollable">
 
 			<?php
 				foreach($images as $image):
@@ -119,9 +119,6 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 			<?php endforeach; ?>
 
 		</ul>
-
-		<script type="text/javascript">
-		</script>
 
     <?php
   }

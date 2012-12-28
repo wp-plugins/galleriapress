@@ -167,7 +167,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
   protected function display_items($entries)
   {
     ?>
-    <ul class="clearfix grid">
+    <ul class="clearfix grid scrollable">
       <?php
         foreach($entries as $entry):
           $ns = $entry->getDocNamespaces();

@@ -22,6 +22,8 @@ Galleriapress.youtube =
                     Galleriapress.hide_drag_message();
                 }
 						});
+
+        $('#youtube-library .grid').height($('#galleriapress-libraries').height() - $('.youtube-toolbar').outerHeight(true) - 29);
 		}
 
 }

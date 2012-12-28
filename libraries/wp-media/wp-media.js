@@ -39,6 +39,10 @@ Galleriapress.wp_media =
                     Galleriapress.hide_drag_message();
                 }
 						});
+
+        $('#wp_media-library .grid').height($('#galleriapress-libraries').height() - $('.wp_media-toolbar').outerHeight(true) - 5);
+
+        $('#galleriapress-libraries').resizable('option', 'alsoResize', '#wp_media-library .grid');
     }
 
 };
