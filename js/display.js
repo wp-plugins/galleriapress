@@ -22,7 +22,7 @@ Galleriapress.init_galleries = function()
 																		}
 																		if(options.captionPosition)
 																		{
-																				jQuery('.galleria-info', jQuery(galleria_elem)).addClass(options['caption_position']);
+																				jQuery('.galleria-info', jQuery(galleria_elem)).addClass(options['captionPosition']);
 																		}
 																}
 														};
