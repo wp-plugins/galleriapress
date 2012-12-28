@@ -152,4 +152,31 @@ function galleriapress_get_default_profile_options()
 							 'theme' => 'classic');
 }
 
+function galleriapress_theme_upload_path()
+{
+  $wp_upload_dir = wp_upload_dir();
+
+  try
+  {
+    $dirs_to_check = array('/galleria/', '/galleria/themes/');
+
+    foreach($dirs_to_check as $dir)
+    {
+      if(!is_dir($wp_upload_dir['basedir'] . $dir))
+        if(!mkdir($wp_upload_dir['basedir'] . $dir))
+        {
+          throw new Exception('Could not create ' . $wp_upload_dir . $dir);
+        }
+    }
+
+    $upload_path = $wp_upload_dir['basedir'] . "/galleria/themes/";
+  }
+  catch(Exception $e)
+  {
+    return false;
+  }
+
+  return $upload_path;
+}
+
 ?>

@@ -32,6 +32,7 @@ require_once(dirname(__FILE__) . '/utilities.php');
 require_once(dirname(__FILE__) . '/library.php');
 require_once(dirname(__FILE__) . '/display-gallery.php');
 require_once(dirname(__FILE__) . '/manage-gallery.php');
+require_once(dirname(__FILE__) . '/settings.php');
 
 if(version_compare($wp_version, '3.5', '<'))
   require_once(dirname(__FILE__) . '/tinymce.php');
@@ -93,7 +94,7 @@ function galleriapress_init()
 
 	// register styles
 	wp_register_style('galleriapress-manage-gallery', plugins_url('/css/manage-gallery.css', __FILE__), array(), $galleriapress_version);
-	wp_register_style('galleriapress', plugins_url('/css/galleriapress.css', __FILE__), array(), $galleriapress_version);
+  wp_register_style('galleriapress', plugins_url('/css/galleriapress.css', __FILE__), array(), $galleriapress_version);
 
 	// register gallery post type
 	register_post_type('gallery',
@@ -144,6 +145,9 @@ function galleriapress_init()
 																							 'slug',
 																							 'thumbnail'),
 													 'register_meta_box_cb' => 'galleriapress_meta_boxes'));
+
+  if(!session_id())
+    session_start();
 }
 add_action('init', 'galleriapress_init');
 
@@ -194,6 +198,15 @@ function galleriapress_admin_init()
 }
 
 add_action('admin_init', 'galleriapress_admin_init');
+
+
+function galleriapress_admin_menu()
+{
+  add_submenu_page('edit.php?post_type=gallery', 'Galleriapress Settings', 'Settings', 'manage_options', 'galleriapress-settings', 'galleriapress_settings_page');
+}
+
+add_action('admin_menu', 'galleriapress_admin_menu');
+
 
 
 function galleriapress_ajax_library_form()
