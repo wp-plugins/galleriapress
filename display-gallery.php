@@ -98,7 +98,6 @@ function galleriapress_shortcode($attr)
   }
 
   // get the options
-  error_log($profile_id);
   if($profile_id)
   {
     $common_options = galleriapress_get_profile_settings($profile_id);
