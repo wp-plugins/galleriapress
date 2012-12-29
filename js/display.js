@@ -6,8 +6,9 @@ Galleriapress.init_galleries = function()
 
 		$('.galleria').each(function()
 												{
-														var gid = jQuery(this).data('gallery_id');
-														var options = galleriapress_options[gid];
+														var gid = $(this).data('gallery_id');
+                            var options_index = $(this).data('options_index');
+														var options = galleriapress_options[gid][options_index];
 														var galleria_elem = this;
 														var extend;
 
@@ -43,6 +44,6 @@ Galleriapress.init_galleries = function()
                             }
 
 														Galleria.loadTheme(options.theme);
-                            Galleria.run('#galleria-' + gid, options);
+                            Galleria.run('#' + $(galleria_elem).attr('id'), options);
 												});
 };

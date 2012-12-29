@@ -124,7 +124,7 @@ function galleriapress_get_profile_settings($id)
 {
 	global $galleriapress_profiles;
 
-	return get_post_meta($id, 'galleriapress_gallery', true);
+	return get_post_meta($id, 'galleriapress_common', true);
 }
 
 
