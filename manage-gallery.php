@@ -114,7 +114,13 @@ function galleriapress_gallery_box()
   <a class="button-secondary clear-library-selected">Clear</a>
   <a class="button-primary add-to-gallery">Add to Gallery</a>
 
+  <div class="item-info">
+    <p>Title: <span class="title"></span></p>
+    <p>Library: <span class="library"></span></p>
+  </div>
+
 	<div class="clearfix galleriapress-items-container">
+
 		<ul id="galleriapress-items" class="connected-sortable grid">
 
 			<?php foreach($items as $item): ?>
@@ -124,8 +130,6 @@ function galleriapress_gallery_box()
       </li>
 			<?php endforeach; ?>
 		</ul><!-- #galleriapress-items -->
-
-  <div class="drag-items-here">Drag Items Here</div><!-- .drag-items-here -->
 
 	</div><!-- .galleriapress-items-container -->
 

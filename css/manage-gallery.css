@@ -215,10 +215,10 @@ a.library-path
   border: 1px solid #eee;
 	clear: both;
   height: 300px;
-  margin: 20px 0;
+  margin: 3px 0 20px;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 20px 0;
+  padding: 10px 0;
   position: relative;
   width: 100%;
 }
@@ -248,6 +248,13 @@ a.library-path
 #galleriapress-items > li:hover .delete
 {
   display: block;
+}
+
+.item-info
+{
+  background: #fff;
+  margin: 20px 0 0;
+  padding: 10px;
 }
 
 
@@ -311,20 +318,4 @@ a.library-path
 	cursor: pointer;
 }
 
-
-/* miscellaneous */
-
-.drag-items-here
-{
-  background: #fff;
-  display: none;
-  font-size: 20px;
-  height: 100%;
-  line-height: 200px;
-  opacity: .7;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  width: 100%;
-}
 

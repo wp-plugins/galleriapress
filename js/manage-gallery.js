@@ -176,10 +176,30 @@ Galleriapress =
 																	 reset_items_data();
 															 });
 
+        $('.galleriapress-items-container').on(
+            'mouseover',
+            '#galleriapress-items li',
+            function()
+            {
+                $('.item-info .title').text($(this).children('img').attr('title'));
+                $('.item-info .library').text($('.libraries-tabs .current img').attr('title'));
+            });
+
+        $('.galleriapress-items-container').on(
+            'mouseout',
+            '#galleriapress-items li',
+            function()
+            {
+                $('.item-info span').text('');
+            });
+
+
         $('#galleriapress-items .delete').live('click',
                                                function(e)
                                                {
                                                    $(this).parent().remove();
+                                                   $('.item-info span').text('');
+
                                                    reset_items_data();
                                                });
 
