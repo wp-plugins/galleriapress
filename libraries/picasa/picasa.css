@@ -10,25 +10,9 @@
   padding: 8px;
 }
 
-.picasa-menu > li
+.picasa-menu form
 {
-  cursor: pointer;
-  float: left;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 32px;
-  margin: 0 8px;
-}
-
-.picasa-menu > li:hover
-{
-  color: #777;
-}
-
-#picasa-library .library-items
-{
-  float: left;
-  width: 678px;
+  display: inline-block;
 }
 
 #picasa-library .picasa-album
@@ -63,17 +47,3 @@
   padding: 5px;
 }
 
-.picasa-menu .picasa-search
-{
-  width: 130px;
-}
-
-.picasa-menu .browse
-{
-  vertical-align: middle;
-}
-
-.nav-item
-{
-  display: inline-block;
-}

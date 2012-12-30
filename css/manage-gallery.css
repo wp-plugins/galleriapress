@@ -149,6 +149,18 @@
   cursor: pointer;
 }
 
+a.library-path
+{
+  background-color: #fff;
+  color: #000;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 6px 0 0;
+  padding: 5px 12px;
+  text-decoration: none;
+}
+
+
 
 /* base image grid */
 
@@ -175,6 +187,7 @@
 {
   background: #ccc;
 }
+
 #gallery-box .grid > li.selected
 {
   background: #bbb;
