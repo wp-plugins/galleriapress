@@ -150,6 +150,22 @@ Galleriapress =
             {
                 $('#galleriapress-libraries .selected').removeClass('selected');
             });
+
+
+        $('.clear-gallery-selected').on(
+            'click',
+            function(e)
+            {
+                $('#galleriapress-items .selected').removeClass('selected');
+            });
+
+        $('.remove-gallery-selected').on(
+            'click',
+            function(e)
+            {
+                $('#galleriapress-items .selected').remove();
+                reset_items_data();
+            });
             
 
 				$('.remove-all').click(function(e)
