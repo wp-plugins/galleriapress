@@ -111,6 +111,9 @@ function galleriapress_gallery_box()
 		<?php endforeach; ?>
 	</div><!-- #galleriapress-libraries -->
 
+  <a class="button-secondary clear-library-selected">Clear</a>
+  <a class="button-primary add-to-gallery">Add to Gallery</a>
+
 	<div class="clearfix galleriapress-items-container">
 		<ul id="galleriapress-items" class="connected-sortable grid">
 

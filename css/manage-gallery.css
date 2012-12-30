@@ -26,6 +26,7 @@
   border: 1px solid #ddd;
   border-top: none;
   height: 400px;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -38,8 +39,7 @@
 #galleriapress-libraries .ui-resizable-s,
 .galleriapress-items-container .ui-resizable-s
 {
-  background: #555;
-  border: 1px solid #555;
+  background-color: #ccc;
   cursor: ns-resize;
   height: 4px;
   left: -1px;
@@ -149,22 +149,69 @@
   cursor: pointer;
 }
 
+
+/* base image grid */
+
+#gallery-box .grid
+{
+	display: block;
+	list-style-type: none;
+  margin: 0;
+}
+
+#gallery-box .grid li
+{
+  background: #eee;
+	cursor: pointer;
+	float: left;
+  height: 130px;
+  margin: 2px;
+  padding: 8px;
+  text-align: center;
+  width: 130px;
+}
+
+#gallery-box .grid > li:hover
+{
+  background: #ccc;
+}
+#gallery-box .grid > li.selected
+{
+  background: #aaa;
+}
+
+#gallery-box .grid li img
+{
+	display: block;
+  margin: 0 auto;
+  max-width: 130px;
+  max-height: 130px;
+}
+
+#galleriapress-libraries .scrollable
+{
+  overflow-y: scroll;
+}
+
+
+/* gallery items */
+
 .galleriapress-items-container
 {
-  border: 1px solid #ddd;
+  background: #eee;
+  border: 1px solid #eee;
 	clear: both;
   height: 300px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding: 20px 0;
   position: relative;
   width: 100%;
 }
 
 #galleriapress-items
 {
-  background: #ddd;
-  border: 1px solid #ddd;
   margin: 0;
   position: relative;
 }
@@ -190,42 +237,8 @@
   display: block;
 }
 
-/* base image grid */
 
-#gallery-box .grid
-{
-	display: block;
-	list-style-type: none;
-  margin: 0;
-}
-
-#gallery-box .grid li
-{
-  background: #ccc;
-	cursor: pointer;
-	float: left;
-  height: 150px;
-  line-height: 150px;
-  margin: 5px;
-  text-align: center;
-  width: 150px;
-}
-
-#gallery-box .grid li img
-{
-	display: inline;
-  margin: 0 auto;
-  max-width: 150px;
-  max-height: 150px;
-  vertical-align: middle;
-}
-
-#galleriapress-libraries .scrollable
-{
-  overflow-y: scroll;
-}
-
-/* wp_media */
+/* sortable */
 
 .ui-sortable-helper
 {
@@ -237,8 +250,9 @@
 	width: 100px;
 	height: 100px;
 	background: #cccccc;
-	margin: 5px;
+	margin: 10px;
 }
+
 
 /* gallery options */
 

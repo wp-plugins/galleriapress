@@ -110,34 +110,15 @@ Galleriapress =
 						    zIndex: 10000,
 						    appendTo: 'body',
 						    helper: 'clone',
-                tolerance: 'pointer',
-                start: function(event, ui)
-                {
-                    Galleriapress.hide_drag_message();
-                    
-                },
-						    receive: function(event, ui) 
-                {
-                    var item = { id: ui.item.data('itemid'),
-                                 thumb: $('img', $(ui.item)).attr('src'),
-                                 library: ui.item.data('library') };
-
-                    if($('img', ui.item).attr('title'))
-                        item.title = $('img', ui.item).attr('title');
-
-										if(!Galleriapress.items)
-												Galleriapress.items = new Array();
-
-                    Galleriapress.items.push(item);
-                    $('#galleriapress_items_data').val(JSON.stringify(Galleriapress.items));
-
-                    ui.item.remove();
-
-                    update_box_height(this);
-						    },
-                remove: reset_items_data,
-                update: reset_items_data
+                tolerance: 'pointer'
 				    }).disableSelection();
+
+        $('#gallery-box .grid > li').on(
+            'click',
+            function()
+            {
+                $(this).toggleClass('selected');
+            });
 
 				// custom size
 				$('.size select, .gallery-size select').change(function()
@@ -154,6 +135,22 @@ Galleriapress =
 																															 custom_size.slideUp();
 																													 }
 																											 }).change();
+
+        $('.add-to-gallery').on(
+            'click',
+            function(e)
+            {
+                $('#galleriapress-libraries .selected').appendTo('#galleriapress-items');
+                reset_items_data();
+            });
+
+        $('.clear-library-selected').on(
+            'click',
+            function(e)
+            {
+                $('#galleriapress-libraries .selected').removeClass('selected');
+            });
+            
 
 				$('.remove-all').click(function(e)
 															 {
@@ -264,18 +261,7 @@ Galleriapress =
                    if(Galleriapress[library] && Galleriapress[library].after_load_library_path)
                        Galleriapress[library].after_load_library_path();
                });
-    },
-
-    show_drag_message: function()
-    {
-        $('.drag-items-here').show();
-    },
-
-    hide_drag_message: function()
-    {
-        $('.drag-items-here').hide();
-    },
-
+    }
 
 };
 
