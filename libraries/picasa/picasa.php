@@ -78,19 +78,27 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
           else
           {
             $albums = $this->api->user_albums($username);
-
-            foreach($albums as $album):
-              $attr = $album->media->group->thumbnail->attributes();
-          ?>
-
-          <div class="picasa-album library-path" data-library="picasa" data-path="user/<?php echo $username; ?>/albums/<?php echo $album->gphoto->id; ?>">
-            <img src="<?php echo $attr['url']; ?>" width="<?php echo $attr['width']; ?>" height="<?php echo $attr['height']; ?>" />
-            <span class="title"><?php echo $album->gphoto->name; ?></span>
-          </div>
-
-          <?php
-            endforeach;
+            $this->display_albums($albums, $username);
           }
+        }
+        else
+        {
+          $items = $this->api->user_uploads($username);
+
+          echo "<h4>Recently uploaded</h4>";
+
+          if(empty($items))
+            echo "<p>No photos found</p>";
+          else
+            $this->display_items($items);
+
+          echo "<h4>Recent albums</h4>";
+          $albums = $this->api->user_albums($username);
+
+          if(empty($albums))
+            echo "<p>No albums found</p>";
+          else
+            $this->display_albums(array_slice($albums, 0, 5), $username);
         }
       }
 
@@ -180,6 +188,21 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
       <?php endforeach; ?>
     </ul>
     <?php
+  }
+
+  protected function display_albums($albums, $username)
+  {
+    foreach($albums as $album):
+      $attr = $album->media->group->thumbnail->attributes();
+    ?>
+
+    <div class="picasa-album library-path" data-library="picasa" data-path="user/<?php echo $username; ?>/albums/<?php echo $album->gphoto->id; ?>">
+      <img src="<?php echo $attr['url']; ?>" width="<?php echo $attr['width']; ?>" height="<?php echo $attr['height']; ?>" />
+      <span class="title"><?php echo $album->gphoto->name; ?></span>
+    </div>
+    
+    <?php
+    endforeach;
   }
 
   protected function display_toolbar($path)

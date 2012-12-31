@@ -29,7 +29,7 @@ class GalleriaPress_PicasaAPI
 
   public function user_album($username, $album_id)
   {
-    $url = self::$PICASA_USER_URL .  $username . '/albumid/' . $album_id;
+    $url = self::$PICASA_USER_URL . $username . '/albumid/' . $album_id;
     $photos_xml = file_get_contents($url);
 
     if(!$photos_xml)
@@ -38,6 +38,19 @@ class GalleriaPress_PicasaAPI
     $feed = new SimpleXMLElement($photos_xml);
 
     return $feed->entry;
+  }
+
+  public function user_uploads($username, $max_results = 10)
+  {
+    $url = self::$PICASA_USER_URL . $username . '?kind=photo&max-results=' . $max_results;
+    $photos_xml = file_get_contents($url);
+
+    if(!$photos_xml)
+      return array();
+
+    $feed = new SimpleXMLElement($photos_xml);
+
+    return $feed->entry;    
   }
 
 }
