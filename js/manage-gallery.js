@@ -113,8 +113,9 @@ Galleriapress =
                 tolerance: 'pointer'
 				    }).disableSelection();
 
-        $('#gallery-box .grid > li').on(
+        $('#gallery-box').on(
             'click',
+            '.grid li',
             function()
             {
                 $(this).toggleClass('selected');
