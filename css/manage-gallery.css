@@ -160,6 +160,25 @@ a.library-path
   text-decoration: none;
 }
 
+#galleriapress-libraries .loading
+{
+  background-color: rgba(255, 255, 255, .8);
+  display: none;
+  left: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+#galleriapress-libraries .spinner
+{
+  display: block;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+}
 
 
 /* base image grid */

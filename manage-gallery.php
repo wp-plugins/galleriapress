@@ -109,6 +109,11 @@ function galleriapress_gallery_box()
     </div><!-- .library-settings -->
 
 		<?php endforeach; ?>
+
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+
 	</div><!-- #galleriapress-libraries -->
 
   <a class="button-secondary clear-library-selected">Clear</a>

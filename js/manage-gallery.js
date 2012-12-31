@@ -284,6 +284,8 @@ Galleriapress =
 
     load_library_path: function(library, library_path)
     {
+        $('#galleriapress-libraries .loading').show();
+
         $.post(ajaxurl,
                {
                    action: 'galleriapress_library_path',
@@ -296,6 +298,8 @@ Galleriapress =
                    $('#' + library + '-library').html(response);
                    if(Galleriapress[library] && Galleriapress[library].after_load_library_path)
                        Galleriapress[library].after_load_library_path();
+
+                   $('#galleriapress-libraries .loading').hide();
                });
     }
 
