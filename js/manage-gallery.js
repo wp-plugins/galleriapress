@@ -115,7 +115,7 @@ Galleriapress =
 
         $('#gallery-box').on(
             'click',
-            '.grid li',
+            '.item',
             function()
             {
                 $(this).toggleClass('selected');

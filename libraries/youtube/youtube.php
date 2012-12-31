@@ -100,7 +100,7 @@ class GalleriaPress_Youtube extends GalleriaPress_Library
 					$attr = $group->thumbnail[0]->attributes();
           $video_url = "http://www.youtube.com/watch?v=" . $video_id;
 			?>
-				<li data-itemid="<?php echo $video_id; ?>" data-library="youtube">
+				<li class="item" data-itemid="<?php echo $video_id; ?>" data-library="youtube">
 					<img src="<?php echo $attr['url']; ?>" style="width:<?php echo $attr['width']; ?>px; height: <?php echo $attr['height']; ?>px" title="<?php echo $entry->title;?>" data-video="<?php echo $video_url; ?>" />
 				</li>
 			<?php endforeach; ?>

@@ -112,7 +112,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
           $title = htmlspecialchars($image->post_title, ENT_QUOTES);
 			?>
 
-			<li class="ui-state-default" data-itemid="<?php echo $image->ID; ?>" data-library="wp_media">
+			<li class="ui-state-default item" data-itemid="<?php echo $image->ID; ?>" data-library="wp_media">
 				<img src="<?php echo $image_src[0]; ?>" title="<?php echo $title; ?>"/>
 			</li>
 

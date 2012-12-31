@@ -174,7 +174,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
           $group = $entry->children($ns['media'])->group;
           $attr = $group->thumbnail[1]->attributes();
       ?>
-      <li class="ui-state-default" data-itemid="<?php echo $entry->id; ?>" data-library="picasa">
+      <li class="ui-state-default item" data-itemid="<?php echo $entry->id; ?>" data-library="picasa">
         <img src="<?php echo $attr['url']; ?>" title="<?php echo $group->title; ?>" />
       </li>
       <?php endforeach; ?>
