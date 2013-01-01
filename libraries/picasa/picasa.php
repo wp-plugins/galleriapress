@@ -109,7 +109,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 
     ?>
     <div class="picasa-menu">
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>">Back</a>
+      <a href="#" class="library-path" data-library="picasa" data-path="user/<?php echo $username; ?>">Back</a>
       <form class="form-picasa-user nav-item">
         <input id="picasa_user" placeholder="Enter username" <?php if($username): ?>value="<?php echo $username; ?>" <?php endif; ?>/>
         <input type="submit" class="library-path button-primary" data-library="picasa" data-path="user/{picasa_user}" value="Update" />
