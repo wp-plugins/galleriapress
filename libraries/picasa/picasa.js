@@ -13,7 +13,7 @@ Galleriapress.picasa =
 
     calculate_grid_height: function()
     {
-        $('#picasa-library .grid').height($('#galleriapress-libraries').height() - $('.picasa-toolbar').outerHeight(true));
+        $('#picasa-library .grid').height($('#galleriapress-libraries').height() - $('.picasa-menu').outerHeight(true));
     }
 };
 
