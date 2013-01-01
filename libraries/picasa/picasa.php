@@ -48,7 +48,6 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		global $post;
 
     $path_elements = explode("/", $path);
-    $mode = array_shift($path_elements);
 
     $gallery_ids = array();
     foreach($gallery_items as $item)
@@ -57,56 +56,100 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
         $gallery_ids[] = $item->id;
     }
 
-    $this->display_toolbar($path);
+    $this->route_path($path);
+  }
 
+  public function library_index($request)
+  {
+    ?>
+    <div class="picasa-menu">
+      <a class="library-path" data-library="picasa" data-path="user/" href="#">Set user</a>
+      <a class="library-path" data-library="picasa" data-path="search/" href="#">Search</a>
+    </div>
+    <?php
+  }
 
-    switch($mode)
+  public function user_index($request)
+  {
+    ?>
+    <div class="picasa-menu">
+      <form class="form-picasa-user">
+        <input id="picasa_user" placeholder="Enter username" <?php if($username): ?>value="<?php echo $username; ?>"<?php endif; ?> />
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="user/{picasa_user}" value="Set User" />
+        <a class="library-path" data-library="picasa" data-path="/" href="#">Back</a>
+      </form>
+    </div>
+
+    <?php
+    if(isset($request['username']))
     {
-    case "user":
-      $username = array_shift($path_elements);
-      if($username)
-      {
-        preg_match("/^albums\/?(.*)?\/?$/", implode("/", $path_elements), $matches);
+      $username = $request['username'];
+      $items = $this->api->user_uploads($username);
 
-        if(!empty($matches))
-        {
-          if($matches[1])
-          {
-            $items = $this->api->user_album($username, $matches[1]);
-            $this->display_items($items);
-          }
-          else
-          {
-            $albums = $this->api->user_albums($username);
-            $this->display_albums($albums, $username);
-          }
-        }
-        else
-        {
-          $items = $this->api->user_uploads($username);
+      echo "<h4>Recently uploaded</h4>";
 
-          echo "<h4>Recently uploaded</h4>";
+      if(empty($items))
+        echo "<p>No photos found</p>";
+      else
+        $this->display_items($items);
 
-          if(empty($items))
-            echo "<p>No photos found</p>";
-          else
-            $this->display_items($items);
+      echo "<h4>Recent albums</h4>";
+      $albums = $this->api->user_albums($username);
 
-          echo "<h4>Recent albums</h4>";
-          $albums = $this->api->user_albums($username);
-
-          if(empty($albums))
-            echo "<p>No albums found</p>";
-          else
-            $this->display_albums(array_slice($albums, 0, 5), $username);
-        }
-      }
-
-     break;
-     }
+      if(empty($albums))
+        echo "<p>No albums found</p>";
+      else
+        $this->display_albums(array_slice($albums, 0, 5), $username);
+    }
 	}
 
-	public function gallery_items($items)
+  public function user_albums($request)
+  {
+    $username = $request['username'];
+
+    ?>
+    <div class="picasa-menu">
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>">Back</a>
+      <form class="form-picasa-user nav-item">
+        <input id="picasa_user" placeholder="Enter username" <?php if($username): ?>value="<?php echo $username; ?>" <?php endif; ?>/>
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="user/{picasa_user}" value="Update" />
+      </form>
+    </div>
+    <?php
+
+    $albums = $this->api->user_albums($username);
+    $this->display_albums($albums, $username);
+  }
+
+  public function user_album($request)
+  {
+    $username = $request['username'];
+    $album_id = $request['album_id'];
+
+    ?>
+    <div class="picasa-menu">
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>/albums">Albums</a>
+    </div>
+    <?php
+
+    $items = $this->api->user_album($username, $album_id);
+    $this->display_items($items);
+  }
+
+  public function search()
+  {
+    ?>
+    <div class="picasa-menu">
+      <form class="form-picasa-search nav-item">
+        <input id="picasa_search" placeholder="Search Picasa" <?php if($search_term): ?>value="<?php echo $search_term; ?>" <?php endif; ?>/>
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="search/{picasa_search}" value="Update" />
+      </form>
+      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
+    </div>
+    <?php    
+  }
+
+  public function gallery_items($items)
 	{
     foreach($items as $item)
     {
@@ -171,6 +214,56 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 		$options['picasa_username'] = $_POST['picasa_username'];
 		update_post_meta($post->ID, 'galleriapress_picasa', $options);
 	}
+
+  protected function route_path($path)
+  {
+    $rules = array('"/"' => 'library_index',
+                   '"user"' => 'user_index',
+                   '"user"/username' => 'user_index',
+                   '"user"/username/"albums"' => 'user_albums',
+                   '"user"/username/"albums"/album_id' => 'user_single_album',
+                   '"search"' => 'search',
+                   '"search"/search_query' => 'search_results');
+
+    error_log($path);
+
+    foreach($rules as $rule => $handler)
+    {
+      $parts = explode("/", $rule);
+      $regexp = array();
+      $var_names = array();
+
+      foreach($parts as $part)
+      {
+        if($part[0] == "\"" && $part[mb_strlen($part) - 1] == "\"")
+        {
+          $regexp[] = str_replace("\"", "", $part);
+        }
+        else
+        {
+          $regexp[] = "([^\/]*)";
+          $var_names[] = $part;
+        }
+      }
+
+      $regexp = implode("\/", $regexp);
+      $regexp = "/^" . $regexp . "\/?$/";
+
+      preg_match($regexp, $path, $matches);
+
+      if(!empty($matches))
+      {
+        foreach($var_names as $index => $var)
+          $request[$var] = $matches[$index + 1];
+
+        error_log($handler);
+
+        call_user_func(array(&$this, $handler), $request);
+
+        return;
+      }
+    }
+  }
 
   protected function display_items($entries)
   {
