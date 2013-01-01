@@ -2,11 +2,12 @@
 
 class GalleriaPress_PicasaAPI
 {
-  private static $PICASA_USER_URL = 'https://picasaweb.google.com/data/feed/api/user/';
+  private static $API_FEED = 'https://picasaweb.google.com/data/feed/api/';
+  private static $API_USER_FEED = 'https://picasaweb.google.com/data/feed/api/user/';
 
   public function user_albums($username)
   {
-    $url = self::$PICASA_USER_URL . $username;
+    $url = self::$API_USER_FEED . $username;
 
     $feed_xml = file_get_contents($url);
 
@@ -29,7 +30,7 @@ class GalleriaPress_PicasaAPI
 
   public function user_album($username, $album_id)
   {
-    $url = self::$PICASA_USER_URL . $username . '/albumid/' . $album_id;
+    $url = self::$API_USER_FEED . $username . '/albumid/' . $album_id;
     $photos_xml = file_get_contents($url);
 
     if(!$photos_xml)
@@ -42,7 +43,20 @@ class GalleriaPress_PicasaAPI
 
   public function user_uploads($username, $max_results = 10)
   {
-    $url = self::$PICASA_USER_URL . $username . '?kind=photo&max-results=' . $max_results;
+    $url = self::$API_USER_FEED . $username . '?kind=photo&max-results=' . $max_results;
+    $photos_xml = file_get_contents($url);
+
+    if(!$photos_xml)
+      return array();
+
+    $feed = new SimpleXMLElement($photos_xml);
+
+    return $feed->entry;    
+  }
+
+  public function search($query, $max_results = 10)
+  {
+    $url = self::$API_FEED . "all?q=" . $query . "&max-results=" . $max_results;
     $photos_xml = file_get_contents($url);
 
     if(!$photos_xml)

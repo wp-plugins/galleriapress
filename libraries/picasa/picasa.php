@@ -136,17 +136,28 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     $this->display_items($items);
   }
 
-  public function search()
+  public function search($request)
   {
+    if(isset($request['search_query']))
+      $search_term = $request['search_query'];
+
     ?>
     <div class="picasa-menu">
-      <form class="form-picasa-search nav-item">
+      <form class="form-picasa-search">
         <input id="picasa_search" placeholder="Search Picasa" <?php if($search_term): ?>value="<?php echo $search_term; ?>" <?php endif; ?>/>
-        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="search/{picasa_search}" value="Update" />
+        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="search/{picasa_search}" value="Search" />
       </form>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
+      <a href="#" class="library-path" data-library="picasa" data-path="/">Back</a>
     </div>
-    <?php    
+    <?php
+
+
+
+    if($search_term)
+    {
+      $items = $this->api->search($search_term);
+      $this->display_items($items);
+    }
   }
 
   public function gallery_items($items)
@@ -223,9 +234,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
                    '"user"/username/"albums"' => 'user_albums',
                    '"user"/username/"albums"/album_id' => 'user_single_album',
                    '"search"' => 'search',
-                   '"search"/search_query' => 'search_results');
-
-    error_log($path);
+                   '"search"/search_query' => 'search');
 
     foreach($rules as $rule => $handler)
     {
@@ -255,8 +264,6 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
       {
         foreach($var_names as $index => $var)
           $request[$var] = $matches[$index + 1];
-
-        error_log($handler);
 
         call_user_func(array(&$this, $handler), $request);
 
@@ -296,52 +303,6 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     
     <?php
     endforeach;
-  }
-
-  protected function display_toolbar($path)
-  {
-    $path_elements = explode("/", $path);
-    $mode = array_shift($path_elements);
-
-  ?>
-  <div class="picasa-menu">
-  <?php
-    switch($mode)
-    {
-      case "user":
-        $username = array_shift($path_elements);
-  ?>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
-      <form class="form-picasa-user nav-item">
-        <input id="picasa_user" placeholder="Enter username" <?php if($username): ?>value="<?php echo $username; ?>" <?php endif; ?>/>
-        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="user/{picasa_user}" value="Update" />
-      </form>
-  <?php if($username): ?>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>/albums">Albums</a>
-  <?php endif;
-        break;
-
-      case "search":
-        $search_term = array_shift($path_elements);
-  ?>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="/">Back</a>
-      <form class="form-picasa-search nav-item">
-        <input id="picasa_search" placeholder="Search Picasa" <?php if($search_term): ?>value="<?php echo $search_term; ?>" <?php endif; ?>/>
-        <input type="submit" class="library-path button-primary" data-library="picasa" data-path="search/{picasa_search}" value="Update" />
-      </form>
-
-      <?php
-      break;
-    default:
-      ?>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user">User</a>
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="search">Search</a>
-      <?php
-      break;
-    }
-      ?>
-    </div><!-- .picasa-menu -->
-  <?php
   }
 }
 
