@@ -134,7 +134,7 @@ function galleriapress_gallery_box()
 		<ul id="galleriapress-items" class="connected-sortable grid">
 
 			<?php foreach($items as $item): ?>
-      <li data-itemid="<?php echo $item->id; ?>" data-library="<?php echo $item->library; ?>" class="<?php echo $item->library; ?>">
+      <li data-itemid="<?php echo $item->id; ?>" data-library="<?php echo $item->library; ?>" class="<?php echo $item->library; ?> item">
         <img src="<?php echo $item->thumb; ?>" <?php if($item->title): ?>title="<?php echo $item->title; ?>" <?php endif; ?>/>
         <span class="delete"></span>
       </li>
