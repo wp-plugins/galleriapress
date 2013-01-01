@@ -119,15 +119,14 @@ function galleriapress_gallery_box()
   <a class="button-secondary clear-library-selected">Clear</a>
   <a class="button-primary add-to-gallery">Add to Gallery</a>
 
-  <div class="item-info">
-
-    <div class="info-panel">
+  <div class="item-info postbox">
+    <div class="handlediv" title="Click to toggle"><br></div>
+    <h3 class="hndle">Item Info</h3>
+    <div class="info-panel inside">
       <p><strong>Title</strong> <span class="title"></span></p>
       <p><strong>Library</strong> <span class="library"></span></p>
     </div><!-- .info-panel -->
-
-    <div class="toggle"></div>
-  </div>
+  </div><!-- .item-info -->
 
 	<div class="clearfix galleriapress-items-container">
 

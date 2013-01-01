@@ -271,21 +271,7 @@ a.library-path
 
 .item-info
 {
-  background: #eee;
   margin: 20px 0 0;
-  padding: 15px;
-  position: relative;
-}
-
-.item-info .toggle
-{
-  background-image: url(../images/edit.png);
-  bottom: 5px;
-  cursor: pointer;
-  height: 16px;
-  right: 5px;
-  position: absolute;
-  width: 16px;
 }
 
 /* sortable */
