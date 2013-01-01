@@ -71,6 +71,9 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
 
   public function user_index($request)
   {
+    if(isset($request['username']))
+      $username = $request['username'];
+
     ?>
     <div class="picasa-menu">
       <form class="form-picasa-user">
@@ -81,7 +84,7 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     </div>
 
     <?php
-    if(isset($request['username']))
+    if($username)
     {
       $username = $request['username'];
       $items = $this->api->user_uploads($username);
@@ -121,14 +124,15 @@ class GalleriaPress_Picasa extends GalleriaPress_Library
     $this->display_albums($albums, $username);
   }
 
-  public function user_album($request)
+  public function user_single_album($request)
   {
     $username = $request['username'];
     $album_id = $request['album_id'];
 
     ?>
     <div class="picasa-menu">
-      <a href="#" class="library-path nav-item" data-library="picasa" data-path="user/<?php echo $username; ?>/albums">Albums</a>
+      <a href="#" class="library-path" data-library="picasa" data-path="user/<?php echo $username; ?>"><?php echo $username; ?></a>
+      <a href="#" class="library-path" data-library="picasa" data-path="user/<?php echo $username; ?>/albums">Albums</a>
     </div>
     <?php
 
