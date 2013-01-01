@@ -186,6 +186,22 @@ Galleriapress =
                 $('.item-info .library').text($('.libraries-tabs .current img').attr('title'));
             });
 
+        $('.item-info .triangle').on(
+            'click',
+            function()
+            {
+                if($(this).hasClass('triangle-up'))
+                {
+                    $('.info-panel').slideUp();
+                    $(this).removeClass('triangle-up').addClass('triangle-down');
+                }
+                else
+                {
+                    $('.info-panel').slideDown();
+                    $(this).removeClass('triangle-down').addClass('triangle-up');
+                }
+            });
+
         $('.galleriapress-items-container').on(
             'mouseout',
             '#galleriapress-items li',

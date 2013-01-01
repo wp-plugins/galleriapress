@@ -120,8 +120,11 @@ function galleriapress_gallery_box()
   <a class="button-primary add-to-gallery">Add to Gallery</a>
 
   <div class="item-info">
-    <p>Title: <span class="title"></span></p>
-    <p>Library: <span class="library"></span></p>
+    <div class="info-panel">
+      <p>Title: <span class="title"></span></p>
+      <p>Library: <span class="library"></span></p>
+    </div><!-- .container -->
+    <div class="triangle triangle-up"></div>
   </div>
 
 	<div class="clearfix galleriapress-items-container">

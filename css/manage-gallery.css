@@ -274,6 +274,29 @@ a.library-path
   background: #fff;
   margin: 20px 0 0;
   padding: 10px;
+  position: relative;
+}
+
+.item-info .triangle
+{
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+  bottom: 5px;
+  cursor: pointer;
+	height: 0;
+  position: absolute;
+  right: 5px;
+	width: 0;
+}
+
+.triangle-up
+{
+	border-bottom: 12px solid #ccc;
+}
+
+.triangle-down
+{
+	border-top: 12px solid #ccc;
 }
 
 
