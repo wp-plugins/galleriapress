@@ -46,7 +46,19 @@ function galleriapress_settings_page()
 
   <?php endif; ?>
 
+  <h3>Libraries</h3>
+
+  <select>
+  <?php
+   $libraries = galleriapress_libraries();
+   foreach($libraries as $library):
+  ?>
+    <option value="<?php echo $library->name; ?>"><?php echo $library->title; ?></option>
+  <?php endforeach; ?>
+  </select>
+
 </div>
+
 
 <?php
 
