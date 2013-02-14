@@ -37,6 +37,8 @@ require_once(dirname(__FILE__) . '/widget.php');
 
 if(version_compare($wp_version, '3.5', '<'))
   require_once(dirname(__FILE__) . '/tinymce.php');
+else
+  require_once(dirname(__FILE__) . '/media.php');
 
 
 
@@ -91,6 +93,7 @@ function galleriapress_init()
 	// register scripts
 	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.8.min.js', __FILE__), array('jquery'), $galleria_version, true);
 	wp_register_script('galleriapress-manage-gallery', plugins_url('/js/manage-gallery.js', __FILE__), array('jquery', 'jquery-ui-sortable'), $galleriapress_version, true);
+  wp_register_script('galleriapress-media', plugins_url('/js/media.js', __FILE__), array('galleria'), $galleriapress_version, true);
   wp_register_script('galleriapress-display', plugins_url('/js/display.js', __FILE__), array('galleria'), $galleriapress_version, true);
 
 	// register styles

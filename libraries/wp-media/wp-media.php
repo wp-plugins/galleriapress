@@ -135,7 +135,7 @@ class GalleriaPress_WP_Media extends GalleriaPress_Library
 
     ?>
     <div class="wp_media-toolbar">
-      <a href="#" class="insert-media button">Add Media</a>
+      <a href="#" class="insert-media button add_media" title="Add Media">Add Media</a>
 
       <?php $this->months_dropdown($month); ?>
 

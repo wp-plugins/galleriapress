@@ -1,5 +1,8 @@
 $ = jQuery.noConflict();
 
+if(typeof wpActiveEditor == "undefined")
+  wpActiveEditor = '';
+
 Galleriapress = 
 {
     init: function()
@@ -237,7 +240,6 @@ Galleriapress =
 																												 },
 																												 'json');
 																							});
-
 
         $(document).on(
             'submit',

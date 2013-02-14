@@ -20,6 +20,10 @@ function galleriapress_admin_gallery_enqueue_scripts()
     wp_enqueue_script('jquery-ui-resizable');
     wp_enqueue_script('galleriapress-manage-gallery');
   }
+  else
+  {
+    wp_enqueue_script('galleriapress-media');
+  }
 }
 
 add_action('admin_print_scripts-post.php', 'galleriapress_admin_gallery_enqueue_scripts');
