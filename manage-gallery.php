@@ -24,6 +24,7 @@ function galleriapress_admin_gallery_enqueue_scripts()
   {
     wp_enqueue_script('galleriapress-media');
   }
+
 }
 
 add_action('admin_print_scripts-post.php', 'galleriapress_admin_gallery_enqueue_scripts');
@@ -43,6 +44,8 @@ function galleriapress_admin_gallery_enqueue_styles($hook)
   {
     wp_enqueue_style('galleriapress-manage-gallery');
   }
+
+  wp_enqueue_style('galleriapress-media');
 }
 
 add_action('admin_print_styles-post.php', 'galleriapress_admin_gallery_enqueue_styles');

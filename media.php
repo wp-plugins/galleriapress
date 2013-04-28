@@ -39,9 +39,14 @@ $galleries = get_posts(array('post_type' => 'gallery',
 
 ?>
 	<script type="text/html" id="tmpl-galleriapress">
-     <?php foreach($galleries as $gallery): ?>
-     <?php echo get_the_title($gallery->ID); ?>
-     <?php endforeach; ?>
+  <div class="galleriapress-galleries">
+    <?php foreach($galleries as $gallery): ?>
+    <div class="gallery" data-gallery_id="<?php echo $gallery->ID; ?>">
+      <div class="gallery-title">
+        <?php echo get_the_title($gallery->ID); ?>
+      </div>
+    </div>
+    <?php endforeach; ?>
   </script>
 <?php
 }

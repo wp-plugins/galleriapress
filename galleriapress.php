@@ -91,13 +91,14 @@ function galleriapress_init()
 	}
 
 	// register scripts
-	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.8.min.js', __FILE__), array('jquery'), $galleria_version, true);
+	wp_register_script('galleria', plugins_url('/galleria/galleria-1.2.9.min.js', __FILE__), array('jquery'), $galleria_version, true);
 	wp_register_script('galleriapress-manage-gallery', plugins_url('/js/manage-gallery.js', __FILE__), array('jquery', 'jquery-ui-sortable'), $galleriapress_version, true);
   wp_register_script('galleriapress-media', plugins_url('/js/media.js', __FILE__), array('galleria'), $galleriapress_version, true);
   wp_register_script('galleriapress-display', plugins_url('/js/display.js', __FILE__), array('galleria'), $galleriapress_version, true);
 
 	// register styles
 	wp_register_style('galleriapress-manage-gallery', plugins_url('/css/manage-gallery.css', __FILE__), array(), $galleriapress_version);
+	wp_register_style('galleriapress-media', plugins_url('/css/media.css', __FILE__), array(), $galleriapress_version);
   wp_register_style('galleriapress', plugins_url('/css/galleriapress.css', __FILE__), array(), $galleriapress_version);
 
 	// register gallery post type

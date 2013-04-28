@@ -1,0 +1,24 @@
+/* add media modal */
+
+.media-frame-content .galleriapress-galleries .gallery
+{
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    float: left;
+    margin: 10px;
+    background: #eee;
+}
+
+.media-frame-content .galleriapress-galleries .gallery:hover,
+.media-frame-content .galleriapress-galleries .gallery.active
+{
+    background: #ddd;
+}
+
+.media-frame-content .galleriapress-galleries .gallery-title
+{
+    font-size: 16px;
+    text-align: center;
+    padding-top: 90px;
+}
