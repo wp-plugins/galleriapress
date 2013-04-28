@@ -59,7 +59,7 @@ function galleriapress_settings_page()
  */
 function galleriapress_theme_upload()
 {
-  if($_POST['action'] == 'galleriapress_theme_upload')
+  if(isset($_POST['action']) && $_POST['action'] == 'galleriapress_theme_upload')
   {
     $form_results = array('errors' => array());
 
